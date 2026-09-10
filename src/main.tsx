@@ -51,7 +51,7 @@ const ShaderBackground = lazy(async () => {
 })
 
 function WhatsAppIcon() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .4 5.3.4 11.8c0 2.1.6 4.1 1.6 5.9L.3 24l6.5-1.7a11.8 11.8 0 0 0 5.3 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6-3.5-8.3ZM12.1 21.5c-1.7 0-3.4-.5-4.9-1.3l-.4-.2-3.9 1 1-3.8-.3-.4a9.7 9.7 0 0 1-1.5-5.1c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.7 9.8Zm5.4-7.3c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-1.6-.8-2.7-1.4-3.8-3.2-.3-.5.3-.4.8-1.4.1-.2.1-.4 0-.6-.1-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.7 5.8 5.1.8.3 1.4.5 1.9.7.8.2 1.5.2 2 .1.6-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.1-1.3 0-.2-.2-.2-.4-.3Z" /></svg>
+  return <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 2.5A13.5 13.5 0 0 0 4.5 23.1L2.7 29.3l6.4-1.7A13.5 13.5 0 1 0 16 2.5Z" /><path fill="none" stroke="#25d366" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.4" d="M11.1 10.7c.4-.8 1.2-.9 1.8-.4l1.5 1.3c.4.4.5.9.2 1.4l-.7 1c.7 1.3 1.8 2.4 3.1 3.1l1-.7c.5-.3 1-.2 1.4.2l1.3 1.5c.5.6.4 1.4-.4 1.8-.7.4-1.6.6-2.5.3-3.6-1.1-6.6-4.1-7.7-7.7-.3-.9-.1-1.8.3-2.5Z" /></svg>
 }
 
 function TelegramIcon() {
@@ -99,6 +99,10 @@ function ProjectCard({ video, title, description, eyebrow, outcome, dark = false
       <p>{description}</p><h3>{title}</h3>
     </article>
   )
+}
+
+function AdditionalServiceCard({ eyebrow, title, description, Icon }: { eyebrow: string; title: string; description: string; Icon: typeof ShieldCheck }) {
+  return <article className="additional-service-card"><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><p>{description}</p><a href="#contacto">Solicitar información <ArrowRight size={14} /></a></div></article>
 }
 
 function ContactSection() {
@@ -177,7 +181,7 @@ function App() {
       </section>
 
       <section className="projects-section" id="servicios">
-        <div className="content-container"><SectionBadge number="2">Servicios que sí aterrizan</SectionBadge><h2>Soluciones para que una marca <em>se mueva.</em></h2><div className="project-grid"><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_122702_390f5305-8719-41d5-ae80-d23ab3796c28.mp4" eyebrow="Captación y ventas" outcome="Una presencia digital que abre conversaciones." title="Websites + embudo digital" description="Landing pages, contenido y automatizaciones para conseguir clientes con una inversión accesible." action="Solicitar información" /><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_123323_f909c2b8-ff6c-4edf-882b-8ebcdbe389b5.mp4" eyebrow="Operación a medida" outcome="Herramientas que trabajan como tu equipo." title="Apps y software empresarial" description="Aplicaciones para contabilidad, gestión y operación, pensadas alrededor de los procesos reales de tu empresa." action="Solicitar información" dark /></div><div className="projects-footer"><span>También auditamos seguridad, UX/UI y creamos personajes con IA.</span><a href="#contacto">Cuéntanos qué necesitas <ArrowRight size={15} /></a></div></div>
+        <div className="content-container"><SectionBadge number="2">Servicios que sí aterrizan</SectionBadge><h2>Soluciones para que una marca <em>se mueva.</em></h2><div className="project-grid"><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_122702_390f5305-8719-41d5-ae80-d23ab3796c28.mp4" eyebrow="Captación y ventas" outcome="Convierte visitas en oportunidades." title="Websites + embudo digital" description="Una landing page estratégica y un embudo simple para que más personas entiendan tu oferta y te contacten." action="Solicitar información" /><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_123323_f909c2b8-ff6c-4edf-882b-8ebcdbe389b5.mp4" eyebrow="Operación a medida" outcome="Trabaja con más control y menos fricción." title="Apps y software empresarial" description="Digitalizamos contabilidad, gestión y operación para que tu equipo trabaje con procesos más claros." action="Solicitar información" dark /></div><div className="additional-services-heading"><span>También podemos ayudarte a</span><h3>Resolver lo que ocurre después de la primera conversación.</h3><p>Estos servicios completan el recorrido: protegen tu operación, mejoran la experiencia y hacen que tu marca sea más memorable.</p></div><div className="additional-services-grid"><AdditionalServiceCard eyebrow="Protección y confianza" title="Auditoría de ciberseguridad" description="Identifica riesgos antes de que se conviertan en incidentes y toma decisiones de seguridad con una ruta clara." Icon={ShieldCheck} /><AdditionalServiceCard eyebrow="Experiencia que convierte" title="Revisión UX / UI" description="Descubre dónde se pierden tus usuarios y transforma una interfaz confusa en una experiencia que invita a continuar." Icon={Palette} /><AdditionalServiceCard eyebrow="Identidad y diferenciación" title="Modelos y personajes con IA" description="Crea un lenguaje visual propio para presentar tu negocio, tus productos o tus campañas con más personalidad." Icon={Sparkles} /></div><div className="projects-footer"><span>¿Tienes otro reto digital?</span><a href="#contacto">Cuéntanos qué necesitas <ArrowRight size={15} /></a></div></div>
       </section>
 
       <ContactSection />
