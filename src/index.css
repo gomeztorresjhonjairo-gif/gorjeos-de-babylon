@@ -288,3 +288,39 @@ img, video { display: block; max-width: 100%; }
   .brand-logo-compact { width: 110px; max-height: 38px; }
 }
 
+/* Cuarta iteración: navegación legible y menú móvil sin velo global */
+.pill-nav {
+  background: rgba(255,255,255,.78);
+  border: 1px solid rgba(255,255,255,.68);
+  box-shadow: 0 12px 32px rgba(17,24,39,.14), inset 0 1px 0 rgba(255,255,255,.9);
+  backdrop-filter: blur(16px) saturate(125%);
+}
+
+.theme-dark .pill-nav {
+  background: rgba(17,31,51,.78);
+  border-color: rgba(148,163,184,.2);
+  box-shadow: 0 12px 32px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.mobile-sheet::before { display: none; }
+.mobile-sheet { background: rgba(255,255,255,.96); backdrop-filter: blur(18px); }
+.theme-dark .mobile-sheet { background: rgba(17,31,51,.96); }
+
+.brand-logo,
+.brand-logo-compact {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.footer-brand .brand-logo {
+  width: 44px;
+  height: 44px;
+  max-height: none;
+}
+
+@media (max-width: 767px) {
+  .brand-logo-compact { width: 32px; height: 32px; }
+  .footer-brand .brand-logo { width: 40px; height: 40px; }
+}
+
