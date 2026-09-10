@@ -108,7 +108,7 @@ function ProjectCard({ video, title, description, eyebrow, outcome, dark = false
 }
 
 function AdditionalServiceCard({ eyebrow, title, description, Icon }: { eyebrow: string; title: string; description: string; Icon: typeof ShieldCheck }) {
-  return <article className="additional-service-card"><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><p>{description}</p><a href="#contacto">Solicitar información <ArrowRight size={14} /></a></div></article>
+  return <article className="additional-service-card"><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><p>{description}</p><a href="#contacto">Cuéntanos tu reto <ArrowRight size={14} /></a></div></article>
 }
 
 function ContactSection() {
@@ -193,7 +193,7 @@ function App() {
         <div className="hero-container">
           <header className="pill-nav">
             <div className="nav-left"><a href="#inicio" className="brand-link" aria-label="Gorjeos de Babylon"><BrandLogo compact /></a><nav className="nav-links">{navItems.map(([label, href]) => <a key={label} href={href}>{label}</a>)}</nav></div>
-            <div className="nav-right"><span className="london-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><RollingButton>Solicitar información</RollingButton></div>
+            <div className="nav-right"><span className="london-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><RollingButton>Cuéntanos tu reto</RollingButton></div>
             <button className="mobile-menu-button" type="button" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={menuOpen ? closeMenu : openMenu}>{menuOpen ? <X size={17} /> : <Menu size={17} />}<span>{menuOpen ? 'Cerrar' : 'Menú'}</span></button>
           </header>
 
@@ -201,13 +201,13 @@ function App() {
           <div id="mobile-navigation" className={`mobile-sheet ${menuOpen ? 'mobile-sheet-open' : ''}`} aria-hidden={!menuOpen}>
             <div className="mobile-sheet-tools"><span className="mobile-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><div className="mobile-sheet-actions"><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><button className="mobile-sheet-close" type="button" onClick={closeMenu} aria-label="Cerrar menú"><X size={17} /><span>Cerrar</span></button></div></div>
             <nav>{navItems.map(([label, href]) => <a key={label} href={href} onClick={(event) => navigateFromMenu(event, href)} tabIndex={menuOpen ? 0 : -1}>{label}<ArrowRight size={20} /></a>)}</nav>
-            <RollingButton dark={false} onClick={(event) => navigateFromMenu(event, '#contacto')}>Solicitar información</RollingButton>
+            <RollingButton dark={false} onClick={(event) => navigateFromMenu(event, '#contacto')}>Cuéntanos tu reto</RollingButton>
           </div>
 
           <div className="hero-content">
             <p className="hero-label">Gorjeos de Babylon</p>
             <h1>Construimos experiencias digitales <br className="desktop-break" />para marcas listas para <br className="desktop-break" />crecer con intención.</h1>
-            <div className="hero-cta-row"><RollingButton dark={false}>Solicitar información</RollingButton><PartnerBadge /></div>
+            <div className="hero-cta-row"><RollingButton dark={false}>Cuéntanos tu reto</RollingButton><PartnerBadge /></div>
           </div>
           <span className="hero-corner-note">COL / ESP · 10 AÑOS DE EXPERIENCIA</span>
         </div>
