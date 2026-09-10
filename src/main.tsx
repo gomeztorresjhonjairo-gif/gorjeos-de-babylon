@@ -1,7 +1,6 @@
-import { StrictMode, useEffect, useState, type FormEvent } from 'react'
+import { StrictMode, lazy, Suspense, useEffect, useRef, useState, type FormEvent } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ArrowRight, BarChart3, Clock, Code2, Eye, Link2, Menu, Moon, Palette, ShieldCheck, Sparkles, Sun, Target, X } from 'lucide-react'
-import { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } from 'shaders/react'
 import './index.css'
 
 const smallImage = 'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260516_090123_74be96d4-9c1b-40cf-932a-96f4f4babed3.png&w=1280&q=85'
@@ -44,18 +43,12 @@ function PartnerBadge() {
   )
 }
 
-function ShaderBackground() {
-  return (
-    <div className="shader-layer" aria-hidden="true">
-      <Shader className="shader-canvas" onUnavailable={() => undefined}>
-        <Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} />
-        <ChromaFlow baseColor="#ffffff" downColor="#ff5f03" leftColor="#ff5f03" rightColor="#ff5f03" upColor="#ff5f03" momentum={13} radius={3.5} />
-        <FlutedGlass aberration={0.61} angle={31} frequency={8} highlight={0.12} highlightSoftness={0} lightAngle={-90} refraction={4} shape="rounded" softness={1} speed={0.15} />
-        <FilmGrain strength={0.05} />
-      </Shader>
-    </div>
-  )
-}
+const ShaderBackground = lazy(async () => {
+  const { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } = await import('shaders/react')
+  return {
+    default: () => <div className="shader-layer" aria-hidden="true"><Shader className="shader-canvas" onUnavailable={() => undefined}><Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} /><ChromaFlow baseColor="#ffffff" downColor="#ff5f03" leftColor="#ff5f03" rightColor="#ff5f03" upColor="#ff5f03" momentum={13} radius={3.5} /><FlutedGlass aberration={0.61} angle={31} frequency={8} highlight={0.12} highlightSoftness={0} lightAngle={-90} refraction={4} shape="rounded" softness={1} speed={0.15} /><FilmGrain strength={0.05} /></Shader><div className="terrain-lines"><svg viewBox="0 0 1600 900" preserveAspectRatio="none"><path d="M0 690C160 610 220 760 390 660S690 520 830 660s280 120 410 10 220-60 360-150" /><path d="M0 760c170-70 250 60 420-45s300-170 450-30 250 150 390 40 210-120 340-170" /><path d="M0 830c150-60 290 20 430-45s260-95 400-15 270 120 420 40 220-95 350-130" /><path d="M0 890c190-60 300-5 470-35s290-48 420-5 280 70 420 20 180-72 290-90" /></svg></div></div>,
+  }
+})
 
 function WhatsAppIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .4 5.3.4 11.8c0 2.1.6 4.1 1.6 5.9L.3 24l6.5-1.7a11.8 11.8 0 0 0 5.3 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6-3.5-8.3ZM12.1 21.5c-1.7 0-3.4-.5-4.9-1.3l-.4-.2-3.9 1 1-3.8-.3-.4a9.7 9.7 0 0 1-1.5-5.1c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.7 9.8Zm5.4-7.3c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-1.6-.8-2.7-1.4-3.8-3.2-.3-.5.3-.4.8-1.4.1-.2.1-.4 0-.6-.1-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.7 5.8 5.1.8.3 1.4.5 1.9.7.8.2 1.5.2 2 .1.6-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.1-1.3 0-.2-.2-.2-.4-.3Z" /></svg>
@@ -86,10 +79,20 @@ function ServiceDetails() {
 }
 
 function ProjectCard({ video, title, description, eyebrow, outcome, dark = false, action }: { video: string; title: string; description: string; eyebrow: string; outcome: string; dark?: boolean; action: string }) {
+  const mediaRef = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  useEffect(() => {
+    const node = mediaRef.current
+    if (!node) return
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect() } }, { rootMargin: '240px' })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <article className="project-card">
-      <div className={`project-media ${dark ? 'media-dark' : ''}`}>
-        <video src={video} autoPlay muted loop playsInline className="project-video" />
+      <div ref={mediaRef} className={`project-media ${dark ? 'media-dark' : ''}`}>
+        <video src={isVisible ? video : undefined} autoPlay muted loop playsInline preload="none" className="project-video" />
         <div className="project-overlay"><span>{eyebrow}</span><strong>{outcome}</strong></div>
         <a className={`project-action ${dark ? 'project-action-dark' : ''}`} href="#contacto"><span>{action}</span>{dark ? <ArrowRight size={14} /> : <Link2 size={14} />}</a>
       </div>
@@ -133,7 +136,7 @@ function App() {
   return (
     <main className={`axion-page ${darkMode ? 'theme-dark' : ''}`}>
       <section className="hero-section" id="inicio">
-        <ShaderBackground />
+        <Suspense fallback={<div className="shader-fallback" aria-hidden="true" />}><ShaderBackground /></Suspense>
         <div className="hero-overlay" aria-hidden="true" />
         <div className="hero-container">
           <header className="pill-nav">
@@ -162,16 +165,14 @@ function App() {
           <SectionBadge number="1">Presentamos Gorjeos</SectionBadge>
           <h2>Estrategia, diseño y tecnología para resolver <br className="desktop-break" />lo que otros prefieren llamar <em>complicado.</em></h2>
           <div className="about-desktop-grid">
-            <figure className="about-figure"><img src={smallImage} alt="Diseño de producto digital en Gorjeos de Babylon" /><figcaption><strong>Diseño que ordena</strong><span>Interfaces claras para que cada decisión tenga sentido.</span></figcaption></figure>
-            <div className="about-copy"><p>Convertimos retos de negocio en productos digitales que se entienden, se usan y generan movimiento.</p><ul><li>Escuchamos el problema real.</li><li>Diseñamos una ruta posible.</li><li>Construimos para crecer.</li></ul><RollingButton dark={false} href="#contacto">Conoce nuestro estudio</RollingButton></div>
             <figure className="about-figure"><img src={largeImage} alt="Sesión de estrategia y tecnología digital" /><figcaption><strong>Dirección con propósito</strong><span>Unimos estrategia, diseño y desarrollo en un mismo equipo.</span></figcaption></figure>
+            <div className="about-copy"><p>Convertimos retos de negocio en productos digitales que se entienden, se usan y generan movimiento.</p><ul><li>Escuchamos el problema real.</li><li>Diseñamos una ruta posible.</li><li>Construimos para crecer.</li></ul><RollingButton dark={false} href="#contacto">Conoce nuestro estudio</RollingButton></div>
           </div>
-          <div className="about-mobile-grid"><p>Convertimos retos de negocio en productos digitales que se entienden, se usan y generan movimiento.</p><ul><li>Escuchamos el problema real.</li><li>Diseñamos una ruta posible.</li><li>Construimos para crecer.</li></ul><RollingButton dark={false} href="#contacto">Conoce nuestro estudio</RollingButton><div className="about-images"><figure className="about-figure"><img src={smallImage} alt="Diseño de producto digital en Gorjeos de Babylon" /><figcaption><strong>Diseño que ordena</strong><span>Interfaces claras para que cada decisión tenga sentido.</span></figcaption></figure><figure className="about-figure"><img src={largeImage} alt="Sesión de estrategia y tecnología digital" /><figcaption><strong>Dirección con propósito</strong><span>Unimos estrategia, diseño y desarrollo.</span></figcaption></figure></div></div>
-          <div className="about-values"><span>Software a medida</span><span>Embudo digital</span><span>UX / UI</span><span>Ciberseguridad</span><span>IA creativa</span></div>
+          <div className="about-mobile-grid"><figure className="about-figure"><img src={largeImage} alt="Sesión de estrategia y tecnología digital" /><figcaption><strong>Dirección con propósito</strong><span>Unimos estrategia, diseño y desarrollo.</span></figcaption></figure><p>Convertimos retos de negocio en productos digitales que se entienden, se usan y generan movimiento.</p><ul><li>Escuchamos el problema real.</li><li>Diseñamos una ruta posible.</li><li>Construimos para crecer.</li></ul><RollingButton dark={false} href="#contacto">Conoce nuestro estudio</RollingButton></div>
           <div className="service-details-heading"><span>Capacidades que se convierten en producto</span><h3>Elige el reto. Nosotros ponemos la experiencia técnica.</h3><p>Todos nuestros servicios parten de una conversación concreta y terminan en una solución que puedes usar, medir y mejorar.</p></div>
           <ServiceDetails />
           <div className="mission-vision-heading"><span>Dirección de Gorjeos</span><h3>Una tecnología útil necesita una razón clara para existir.</h3></div>
-          <div className="mission-vision-grid"><article><div className="mission-vision-icon"><Target size={20} /></div><span>Misión</span><h3>Crear soluciones digitales que hagan más simples, seguras y valiosas las operaciones de empresas, gobierno y terceros.</h3></article><article><div className="mission-vision-icon"><Eye size={20} /></div><span>Visión</span><h3>Ser un aliado tecnológico confiable entre Colombia y España, reconocido por convertir retos complejos en progreso visible.</h3></article></div>
+          <div className="mission-vision-grid"><article><div className="mission-vision-top"><div className="mission-vision-icon"><Target size={20} /></div><span>Misión</span></div><h3>Crear soluciones digitales que hagan más simples, seguras y valiosas las operaciones de empresas, gobierno y terceros.</h3></article><article><div className="mission-vision-top"><div className="mission-vision-icon"><Eye size={20} /></div><span>Visión</span></div><h3>Ser un aliado tecnológico confiable entre Colombia y España, reconocido por convertir retos complejos en progreso visible.</h3></article></div>
         </div>
       </section>
 
