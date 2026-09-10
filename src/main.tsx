@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useState } from 'react'
+import { StrictMode, useEffect, useState, type FormEvent } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ArrowRight, Clock, Link2, Menu, X } from 'lucide-react'
 import { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } from 'shaders/react'
@@ -65,6 +65,28 @@ function ProjectCard({ video, title, description, dark = false, action }: { vide
   )
 }
 
+function ContactSection() {
+  const [sent, setSent] = useState(false)
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    const subject = encodeURIComponent('Solicitud de información — Gorjeos de Babylon')
+    const body = encodeURIComponent(`Nombre: ${data.get('name')}\nCorreo: ${data.get('email')}\nInterés: ${data.get('interest')}\nMensaje: ${data.get('message')}\n\nAutorizo el envío de información comercial: sí`)
+    setSent(true)
+    window.location.href = `mailto:gorjeosbabylon@gmail.com?subject=${subject}&body=${body}`
+  }
+
+  return (
+    <section className="contact-section" id="contacto">
+      <div className="content-container contact-container">
+        <div className="contact-intro"><SectionBadge number="3">Hablemos claro</SectionBadge><h2>¿Quieres recibir información o encontrar una solución?</h2><p>Déjanos tus datos y cuéntanos qué estás buscando. Te responderemos desde Gorjeos de Babylon con información útil, sin ruido.</p><div className="contact-direct"><span>También puedes escribirnos directo</span><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/573212155883" target="_blank" rel="noreferrer">WhatsApp · +57 321 215 5883</a><a href="tel:+34695018080">España · +34 695 018 080</a></div></div>
+        <div className="contact-form-wrap">{sent ? <div className="contact-success"><strong>Gracias por escribirnos.</strong><p>Se abrió tu correo con la información preparada. Si no se abrió automáticamente, puedes escribirnos a <a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a>.</p></div> : <form className="contact-form" onSubmit={handleSubmit}><label>Nombre<input required name="name" placeholder="Tu nombre" /></label><label>Correo electrónico<input required type="email" name="email" placeholder="tu@correo.com" /></label><label>¿Qué te interesa?<select required name="interest" defaultValue=""><option value="" disabled>Selecciona una opción</option><option>Website y embudo digital</option><option>App o software empresarial</option><option>Auditoría de ciberseguridad</option><option>Revisión UX / UI</option><option>Modelos o personajes con IA</option><option>Solo quiero conocer la empresa</option></select></label><label>Mensaje<textarea required name="message" rows={4} placeholder="Cuéntanos brevemente qué necesitas..." /></label><label className="consent-field"><input required type="checkbox" name="consent" /><span>Autorizo a Gorjeos de Babylon a enviarme información relacionada con sus servicios. Puedo retirar esta autorización cuando quiera.</span></label><button className="form-submit" type="submit">Enviar solicitud <span><ArrowRight size={15} /></span></button></form>}</div>
+      </div>
+    </section>
+  )
+}
+
 function App() {
   const londonTime = useLondonTime()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -78,20 +100,20 @@ function App() {
         <div className="hero-container">
           <header className="pill-nav">
             <div className="nav-left"><a href="#inicio" className="logo-circle" aria-label="Gorjeos de Babylon">GB</a><nav className="nav-links">{navItems.map(([label, href]) => <a key={label} href={href}>{label}</a>)}</nav></div>
-            <div className="nav-right"><span className="project-status">Tomando proyectos para 2026</span><span className="london-time"><Clock size={14} /> {londonTime} en Londres</span><RollingButton>Hablemos de tu proyecto</RollingButton></div>
+            <div className="nav-right"><span className="project-status">Empresas · Gobierno · Terceros</span><span className="london-time"><Clock size={14} /> {londonTime} en Londres</span><RollingButton>Solicitar información</RollingButton></div>
             <button className="mobile-menu-button" type="button" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X size={17} /> : <Menu size={17} />}<span>{menuOpen ? 'Cerrar' : 'Menú'}</span></button>
           </header>
 
           <div className={`mobile-sheet ${menuOpen ? 'mobile-sheet-open' : ''}`}>
             <span className="mobile-time"><Clock size={14} /> {londonTime} en Londres</span>
             <nav>{navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)}>{label}<ArrowRight size={20} /></a>)}</nav>
-            <RollingButton dark={false}>Iniciar un proyecto</RollingButton>
+            <RollingButton dark={false}>Solicitar información</RollingButton>
           </div>
 
           <div className="hero-content">
             <p className="hero-label">Gorjeos de Babylon</p>
             <h1>Construimos experiencias digitales <br className="desktop-break" />para marcas listas para <br className="desktop-break" />crecer con intención.</h1>
-            <div className="hero-cta-row"><RollingButton dark={false}>Iniciar un proyecto</RollingButton><PartnerBadge /></div>
+            <div className="hero-cta-row"><RollingButton dark={false}>Solicitar información</RollingButton><PartnerBadge /></div>
           </div>
           <span className="hero-corner-note">COL / ESP · 10 AÑOS DE EXPERIENCIA</span>
         </div>
@@ -108,17 +130,19 @@ function App() {
           </div>
           <div className="about-mobile-grid"><p>Investigamos, pensamos y construimos con equipos que quieren llevar su potencial digital más lejos.</p><RollingButton dark={false} href="#contacto">Conoce nuestro estudio</RollingButton><div className="about-images"><img src={smallImage} alt="Detalle visual de un proyecto digital" /><img src={largeImage} alt="Composición visual de una experiencia digital" /></div></div>
           <div className="about-values"><span>Software a medida</span><span>Embudo digital</span><span>UX / UI</span><span>Ciberseguridad</span><span>IA creativa</span></div>
+          <div className="mission-vision-grid"><article><span>Misión</span><h3>Crear soluciones digitales que hagan más simples, seguras y valiosas las operaciones de empresas, gobierno y terceros.</h3></article><article><span>Visión</span><h3>Ser un aliado tecnológico confiable entre Colombia y España, reconocido por convertir retos complejos en progreso visible.</h3></article></div>
         </div>
       </section>
 
-      <section className="projects-section" id="proyectos">
-        <div className="content-container"><SectionBadge number="2">Servicios que sí aterrizan</SectionBadge><h2>Soluciones para que una marca <em>se mueva.</em></h2><div className="project-grid"><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_122702_390f5305-8719-41d5-ae80-d23ab3796c28.mp4" title="Websites que convierten" description="Diseño, contenido y desarrollo para abrir conversaciones con las personas correctas." action="Hablar del servicio" /><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_123323_f909c2b8-ff6c-4edf-882b-8ebcdbe389b5.mp4" title="Apps y software a medida" description="Apps para contabilidad, gestión y operación que se sienten hechas para tu equipo." action="Hablar del servicio" dark /></div><div className="projects-footer"><span>También auditamos seguridad, UX/UI y creamos personajes con IA.</span><a href="#contacto">Cuéntanos qué necesitas <ArrowRight size={15} /></a></div></div>
+      <section className="projects-section" id="servicios">
+        <div className="content-container"><SectionBadge number="2">Servicios que sí aterrizan</SectionBadge><h2>Soluciones para que una marca <em>se mueva.</em></h2><div className="project-grid"><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_122702_390f5305-8719-41d5-ae80-d23ab3796c28.mp4" title="Websites que convierten" description="Diseño, contenido y desarrollo para abrir conversaciones con las personas correctas." action="Solicitar información" /><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_123323_f909c2b8-ff6c-4edf-882b-8ebcdbe389b5.mp4" title="Apps y software a medida" description="Apps para contabilidad, gestión y operación que se sienten hechas para tu equipo." action="Solicitar información" dark /></div><div className="projects-footer"><span>También auditamos seguridad, UX/UI y creamos personajes con IA.</span><a href="#contacto">Cuéntanos qué necesitas <ArrowRight size={15} /></a></div></div>
       </section>
 
-      <footer className="axion-footer" id="contacto"><div className="footer-brand"><a href="#inicio" className="logo-circle">GB</a><span>Gorjeos de Babylon</span></div><div className="footer-contact"><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/573212155883" target="_blank" rel="noreferrer">WhatsApp +57 321 215 5883</a><a href="tel:+34695018080">España +34 695 018 080</a><a href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer">Telegram · gorjeosbabylon</a></div><div className="footer-meta"><span>Colombia · España</span><span>© 2026 Gorjeos de Babylon</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+      <ContactSection />
+      <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="logo-circle">GB</a><span>Gorjeos de Babylon</span></div><div className="footer-contact"><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/573212155883" target="_blank" rel="noreferrer">WhatsApp +57 321 215 5883</a><a href="tel:+34695018080">España +34 695 018 080</a><a href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer">Telegram · gorjeosbabylon</a></div><div className="footer-meta"><span>Colombia · España</span><span>© 2026 Gorjeos de Babylon</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+      <div className="floating-contact" aria-label="Contacto directo"><a className="floating-whatsapp" href="https://wa.me/573212155883" target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp">wa</a><a className="floating-telegram" href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer" aria-label="Escribir por Telegram">➤</a></div>
     </main>
   )
 }
 
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>)
-
