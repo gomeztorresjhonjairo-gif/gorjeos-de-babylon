@@ -58,7 +58,7 @@ function ProjectCard({ video, title, description, dark = false, action }: { vide
     <article className="project-card">
       <div className={`project-media ${dark ? 'media-dark' : ''}`}>
         <video src={video} autoPlay muted loop playsInline className="project-video" />
-        <button className={`project-action ${dark ? 'project-action-dark' : ''}`} type="button"><span>{action}</span>{dark ? <ArrowRight size={14} /> : <Link2 size={14} />}</button>
+        <a className={`project-action ${dark ? 'project-action-dark' : ''}`} href="#contacto"><span>{action}</span>{dark ? <ArrowRight size={14} /> : <Link2 size={14} />}</a>
       </div>
       <p>{description}</p><h3>{title}</h3>
     </article>
@@ -68,7 +68,7 @@ function ProjectCard({ video, title, description, dark = false, action }: { vide
 function App() {
   const londonTime = useLondonTime()
   const [menuOpen, setMenuOpen] = useState(false)
-  const navItems = [['Proyectos', '#proyectos'], ['Estudio', '#estudio'], ['Servicios', '#proyectos'], ['Contacto', '#contacto']]
+  const navItems = [['Estudio', '#estudio'], ['Servicios', '#servicios'], ['Contacto', '#contacto']]
 
   return (
     <main className="axion-page">
@@ -112,12 +112,13 @@ function App() {
       </section>
 
       <section className="projects-section" id="proyectos">
-        <div className="content-container"><SectionBadge number="2">Lo que hacemos posible</SectionBadge><h2>Proyectos que hacen que una marca <em>se mueva.</em></h2><div className="project-grid"><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_122702_390f5305-8719-41d5-ae80-d23ab3796c28.mp4" title="Websites que convierten" description="Diseño, contenido y desarrollo para abrir conversaciones con las personas correctas." action="Ver servicio" /><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_123323_f909c2b8-ff6c-4edf-882b-8ebcdbe389b5.mp4" title="Software a medida" description="Apps para contabilidad, gestión y operación que se sienten hechas para tu equipo." action="Conocer más" dark /></div><div className="projects-footer"><span>¿Tienes una idea que todavía no tiene forma?</span><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com <ArrowRight size={15} /></a></div></div>
+        <div className="content-container"><SectionBadge number="2">Servicios que sí aterrizan</SectionBadge><h2>Soluciones para que una marca <em>se mueva.</em></h2><div className="project-grid"><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_122702_390f5305-8719-41d5-ae80-d23ab3796c28.mp4" title="Websites que convierten" description="Diseño, contenido y desarrollo para abrir conversaciones con las personas correctas." action="Hablar del servicio" /><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_123323_f909c2b8-ff6c-4edf-882b-8ebcdbe389b5.mp4" title="Apps y software a medida" description="Apps para contabilidad, gestión y operación que se sienten hechas para tu equipo." action="Hablar del servicio" dark /></div><div className="projects-footer"><span>También auditamos seguridad, UX/UI y creamos personajes con IA.</span><a href="#contacto">Cuéntanos qué necesitas <ArrowRight size={15} /></a></div></div>
       </section>
 
-      <footer className="axion-footer" id="contacto"><div className="footer-brand"><a href="#inicio" className="logo-circle">GB</a><span>Gorjeos de Babylon</span></div><div className="footer-contact"><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/573212155883" target="_blank" rel="noreferrer">WhatsApp +57 321 215 5883</a><a href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer">Telegram · gorjeosbabylon</a></div><div className="footer-meta"><span>Colombia · España</span><span>© 2026 Gorjeos de Babylon</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+      <footer className="axion-footer" id="contacto"><div className="footer-brand"><a href="#inicio" className="logo-circle">GB</a><span>Gorjeos de Babylon</span></div><div className="footer-contact"><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/573212155883" target="_blank" rel="noreferrer">WhatsApp +57 321 215 5883</a><a href="tel:+34695018080">España +34 695 018 080</a><a href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer">Telegram · gorjeosbabylon</a></div><div className="footer-meta"><span>Colombia · España</span><span>© 2026 Gorjeos de Babylon</span><a href="#inicio">Volver arriba ↑</a></div></footer>
     </main>
   )
 }
 
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>)
+
