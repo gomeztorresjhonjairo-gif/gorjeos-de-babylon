@@ -1,6 +1,8 @@
 import { StrictMode, lazy, Suspense, useEffect, useRef, useState, type FormEvent, type MouseEvent } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ArrowRight, BarChart3, Clock, Code2, Eye, Link2, Menu, Moon, Palette, ShieldCheck, Sparkles, Sun, Target, X } from 'lucide-react'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import './index.css'
 
 const smallImage = 'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260516_090123_74be96d4-9c1b-40cf-932a-96f4f4babed3.png&w=1280&q=85'
@@ -183,6 +185,7 @@ function App() {
   }, [menuOpen])
 
   return (
+    <>
     <main className={`axion-page ${darkMode ? 'theme-dark' : ''}`}>
       <section className="hero-section" id="inicio">
         <Suspense fallback={<div className="shader-fallback" aria-hidden="true" />}><ShaderBackground /></Suspense>
@@ -194,6 +197,7 @@ function App() {
             <button className="mobile-menu-button" type="button" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={menuOpen ? closeMenu : openMenu}>{menuOpen ? <X size={17} /> : <Menu size={17} />}<span>{menuOpen ? 'Cerrar' : 'Menú'}</span></button>
           </header>
 
+          {menuOpen && <button className="mobile-menu-backdrop" type="button" aria-label="Cerrar menú" onClick={closeMenu} tabIndex={-1} />}
           <div id="mobile-navigation" className={`mobile-sheet ${menuOpen ? 'mobile-sheet-open' : ''}`} aria-hidden={!menuOpen}>
             <div className="mobile-sheet-tools"><span className="mobile-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><div className="mobile-sheet-actions"><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><button className="mobile-sheet-close" type="button" onClick={closeMenu} aria-label="Cerrar menú"><X size={17} /><span>Cerrar</span></button></div></div>
             <nav>{navItems.map(([label, href]) => <a key={label} href={href} onClick={(event) => navigateFromMenu(event, href)} tabIndex={menuOpen ? 0 : -1}>{label}<ArrowRight size={20} /></a>)}</nav>
@@ -215,10 +219,10 @@ function App() {
           <SectionBadge number="1">Presentamos Gorjeos</SectionBadge>
           <h2>Estrategia, diseño y tecnología para resolver <br className="desktop-break" />lo que otros prefieren llamar <em>complicado.</em></h2>
           <div className="about-desktop-grid">
-            <figure className="about-figure"><img src={largeImage} alt="Sesión de estrategia y tecnología digital" /><figcaption><strong>Dirección con propósito</strong><span>Unimos estrategia, diseño y desarrollo en un mismo equipo.</span></figcaption></figure>
+            <figure className="about-figure"><img src={largeImage} alt="Sesión de estrategia y tecnología digital" loading="lazy" decoding="async" /><figcaption><strong>Dirección con propósito</strong><span>Unimos estrategia, diseño y desarrollo en un mismo equipo.</span></figcaption></figure>
             <div className="about-copy"><p>Convertimos retos de negocio en productos digitales que se entienden, se usan y generan movimiento.</p><ul><li>Escuchamos el problema real.</li><li>Diseñamos una ruta posible.</li><li>Construimos para crecer.</li></ul><RollingButton dark={false} href="#contacto">Conoce nuestro estudio</RollingButton></div>
           </div>
-          <div className="about-mobile-grid"><figure className="about-figure"><img src={largeImage} alt="Sesión de estrategia y tecnología digital" /><figcaption><strong>Dirección con propósito</strong><span>Unimos estrategia, diseño y desarrollo.</span></figcaption></figure><p>Convertimos retos de negocio en productos digitales que se entienden, se usan y generan movimiento.</p><ul><li>Escuchamos el problema real.</li><li>Diseñamos una ruta posible.</li><li>Construimos para crecer.</li></ul><RollingButton dark={false} href="#contacto">Conoce nuestro estudio</RollingButton></div>
+          <div className="about-mobile-grid"><figure className="about-figure"><img src={largeImage} alt="Sesión de estrategia y tecnología digital" loading="lazy" decoding="async" /><figcaption><strong>Dirección con propósito</strong><span>Unimos estrategia, diseño y desarrollo.</span></figcaption></figure><p>Convertimos retos de negocio en productos digitales que se entienden, se usan y generan movimiento.</p><ul><li>Escuchamos el problema real.</li><li>Diseñamos una ruta posible.</li><li>Construimos para crecer.</li></ul><RollingButton dark={false} href="#contacto">Conoce nuestro estudio</RollingButton></div>
           <div className="mission-vision-heading"><span>Dirección de Gorjeos</span><h3>Una tecnología útil necesita una razón clara para existir.</h3></div>
           <div className="mission-vision-grid"><article><div className="mission-vision-top"><div className="mission-vision-icon"><Target size={20} /></div><span>Misión</span></div><h3>Crear soluciones digitales que hagan más simples, seguras y valiosas las operaciones de empresas, gobierno y terceros.</h3></article><article><div className="mission-vision-top"><div className="mission-vision-icon"><Eye size={20} /></div><span>Visión</span></div><h3>Ser un aliado tecnológico confiable entre Colombia y España, reconocido por convertir retos complejos en progreso visible.</h3></article></div>
           <div className="service-details-heading"><span>Capacidades que se convierten en producto</span><h3>Elige el reto. Nosotros ponemos la experiencia técnica.</h3><p>Todos nuestros servicios parten de una conversación concreta y terminan en una solución que puedes usar, medir y mejorar.</p></div>
@@ -234,6 +238,9 @@ function App() {
       <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="brand-link"><BrandLogo /></a></div><div className="footer-contact"><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer">WhatsApp +34 695 018 080</a><a href="tel:+34695018080">España +34 695 018 080</a><a href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer">Telegram · gorjeosbabylon</a></div><div className="footer-meta"><span>Colombia · España</span><span>© 2026 Gorjeos de Babylon</span><a href="#inicio">Volver arriba ↑</a></div></footer>
       <div className="floating-contact" aria-label="Contacto directo"><a className="floating-whatsapp" href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp"><WhatsAppIcon /></a><a className="floating-telegram" href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer" aria-label="Escribir por Telegram"><TelegramIcon /></a></div>
     </main>
+    <Analytics />
+    <SpeedInsights />
+    </>
   )
 }
 
