@@ -305,6 +305,13 @@ img, video { display: block; max-width: 100%; }
 .mobile-sheet::before { display: none; }
 .mobile-sheet { background: rgba(255,255,255,.96); backdrop-filter: blur(18px); }
 .theme-dark .mobile-sheet { background: rgba(17,31,51,.96); }
+.pill-nav .brand-link { margin-left: 4px; }
+.mobile-sheet { visibility: hidden; pointer-events: none; }
+.mobile-sheet-open { visibility: visible; pointer-events: auto; }
+.mobile-sheet-actions { display: flex; align-items: center; gap: 10px; }
+.mobile-sheet-close { display: inline-flex; align-items: center; gap: 5px; border: 1px solid currentColor; border-radius: 999px; padding: 7px 11px; background: transparent; color: inherit; font-size: 12px; }
+.mobile-sheet-close:hover { background: rgba(242,101,34,.14); }
+#estudio, #servicios, #contacto { scroll-margin-top: 96px; }
 
 .brand-logo,
 .brand-logo-compact {
