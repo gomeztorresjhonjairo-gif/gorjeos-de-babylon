@@ -1,4 +1,4 @@
-import { StrictMode, lazy, Suspense, useEffect, useRef, useState, type FormEvent } from 'react'
+import { StrictMode, lazy, Suspense, useEffect, useRef, useState, type FormEvent, type MouseEvent } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ArrowRight, BarChart3, Clock, Code2, Eye, Link2, Menu, Moon, Palette, ShieldCheck, Sparkles, Sun, Target, X } from 'lucide-react'
 import './index.css'
@@ -25,9 +25,9 @@ function useColombiaTime() {
   return time
 }
 
-function RollingButton({ children, dark = true, href = '#contacto' }: { children: string; dark?: boolean; href?: string }) {
+function RollingButton({ children, dark = true, href = '#contacto', onClick }: { children: string; dark?: boolean; href?: string; onClick?: (event: MouseEvent<HTMLAnchorElement>) => void }) {
   return (
-    <a className={`rolling-button group ${dark ? 'rolling-dark' : 'rolling-orange'}`} href={href}>
+    <a className={`rolling-button group ${dark ? 'rolling-dark' : 'rolling-orange'}`} href={href} onClick={onClick}>
       <span className="rolling-text"><span>{children}</span><span>{children}</span></span>
       <span className="rolling-arrow"><ArrowRight size={15} strokeWidth={2} /></span>
     </a>
@@ -134,12 +134,53 @@ function ContactSection() {
 function App() {
   const colombiaTime = useColombiaTime()
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuHistoryRef = useRef(false)
   const [darkMode, setDarkMode] = useState(() => window.localStorage.getItem('gorjeos-theme') === 'dark')
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? 'dark' : 'light'
     window.localStorage.setItem('gorjeos-theme', darkMode ? 'dark' : 'light')
   }, [darkMode])
   const navItems = [['Inicio', '#inicio'], ['Nosotros', '#estudio'], ['Servicios', '#servicios'], ['Contacto', '#contacto']]
+  const openMenu = () => {
+    if (menuOpen) return
+    window.history.pushState({ ...window.history.state, gorjeosMobileMenu: true }, '', window.location.href)
+    menuHistoryRef.current = true
+    setMenuOpen(true)
+  }
+  const closeMenu = () => {
+    setMenuOpen(false)
+    if (menuHistoryRef.current) {
+      menuHistoryRef.current = false
+      window.history.back()
+    }
+  }
+  const navigateFromMenu = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault()
+    const target = document.querySelector(href)
+    closeMenu()
+    window.setTimeout(() => target?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
+  }
+  useEffect(() => {
+    const handlePopState = () => {
+      if (menuHistoryRef.current) {
+        menuHistoryRef.current = false
+        setMenuOpen(false)
+      }
+    }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && menuOpen) closeMenu()
+    }
+    window.addEventListener('popstate', handlePopState)
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [menuOpen])
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
 
   return (
     <main className={`axion-page ${darkMode ? 'theme-dark' : ''}`}>
@@ -150,13 +191,13 @@ function App() {
           <header className="pill-nav">
             <div className="nav-left"><a href="#inicio" className="brand-link" aria-label="Gorjeos de Babylon"><BrandLogo compact /></a><nav className="nav-links">{navItems.map(([label, href]) => <a key={label} href={href}>{label}</a>)}</nav></div>
             <div className="nav-right"><span className="london-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><RollingButton>Solicitar información</RollingButton></div>
-            <button className="mobile-menu-button" type="button" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X size={17} /> : <Menu size={17} />}<span>{menuOpen ? 'Cerrar' : 'Menú'}</span></button>
+            <button className="mobile-menu-button" type="button" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={menuOpen ? closeMenu : openMenu}>{menuOpen ? <X size={17} /> : <Menu size={17} />}<span>{menuOpen ? 'Cerrar' : 'Menú'}</span></button>
           </header>
 
-          <div className={`mobile-sheet ${menuOpen ? 'mobile-sheet-open' : ''}`}>
-            <div className="mobile-sheet-tools"><span className="mobile-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /></div>
-            <nav>{navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)}>{label}<ArrowRight size={20} /></a>)}</nav>
-            <RollingButton dark={false}>Solicitar información</RollingButton>
+          <div id="mobile-navigation" className={`mobile-sheet ${menuOpen ? 'mobile-sheet-open' : ''}`} aria-hidden={!menuOpen}>
+            <div className="mobile-sheet-tools"><span className="mobile-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><div className="mobile-sheet-actions"><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><button className="mobile-sheet-close" type="button" onClick={closeMenu} aria-label="Cerrar menú"><X size={17} /><span>Cerrar</span></button></div></div>
+            <nav>{navItems.map(([label, href]) => <a key={label} href={href} onClick={(event) => navigateFromMenu(event, href)} tabIndex={menuOpen ? 0 : -1}>{label}<ArrowRight size={20} /></a>)}</nav>
+            <RollingButton dark={false} onClick={(event) => navigateFromMenu(event, '#contacto')}>Solicitar información</RollingButton>
           </div>
 
           <div className="hero-content">
