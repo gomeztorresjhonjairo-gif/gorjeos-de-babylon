@@ -289,7 +289,11 @@ img, video { display: block; max-width: 100%; }
 }
 
 /* Cuarta iteración: navegación legible y menú móvil sin velo global */
+.hero-container { z-index: auto; }
+.hero-content { position: relative; z-index: 3; }
+.hero-corner-note { z-index: 3; }
 .pill-nav {
+  z-index: 1000;
   background: rgba(255,255,255,.78);
   border: 1px solid rgba(255,255,255,.68);
   box-shadow: 0 12px 32px rgba(17,24,39,.14), inset 0 1px 0 rgba(255,255,255,.9);
@@ -303,7 +307,7 @@ img, video { display: block; max-width: 100%; }
 }
 
 .mobile-sheet::before { display: none; }
-.mobile-sheet { background: rgba(255,255,255,.99); backdrop-filter: blur(18px); }
+.mobile-sheet { z-index: 1002; background: rgba(255,255,255,.99); backdrop-filter: blur(18px); }
 .theme-dark .mobile-sheet { background: rgba(17,31,51,.99); }
 .mobile-menu-backdrop { display: none; }
 .pill-nav .brand-link { margin-left: 4px; }
@@ -330,7 +334,7 @@ img, video { display: block; max-width: 100%; }
 @media (max-width: 767px) {
   .brand-logo-compact { width: 32px; height: 32px; }
   .footer-brand .brand-logo { width: 40px; height: 40px; }
-  .mobile-menu-backdrop { position: fixed; inset: 0; z-index: 45; display: block; border: 0; background: rgba(9,15,28,.3); backdrop-filter: blur(2px); }
+  .mobile-menu-backdrop { position: fixed; inset: 0; z-index: 1001; display: block; border: 0; background: rgba(9,15,28,.3); backdrop-filter: blur(2px); }
   .theme-dark .mobile-menu-backdrop { background: rgba(0,0,0,.42); }
 }
 
