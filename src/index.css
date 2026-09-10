@@ -176,6 +176,24 @@ img, video { display: block; max-width: 100%; }
 .theme-dark .service-detail-card p { color: #aab4c5; }
 .theme-dark .mission-vision-grid article { border-color: #344255; background: #202c3e; }
 
+/* Composición final de Nosotros */
+.about-desktop-grid { grid-template-columns: minmax(0, 1.18fr) minmax(300px, .82fr); align-items: stretch; gap: clamp(28px, 4vw, 64px); }
+.about-desktop-grid .about-figure { height: clamp(320px, 34vw, 475px); }
+.about-desktop-grid .about-copy { min-height: 0; align-self: center; justify-content: center; padding: 20px 0; }
+.about-mobile-grid .about-figure { width: 100%; margin-bottom: 25px; }
+.mission-vision-top { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+.mission-vision-top .mission-vision-icon { margin: 0; }
+.mission-vision-top > span { color: #f26522; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.mission-vision-grid article { background: rgba(255,255,255,.42); backdrop-filter: blur(14px); box-shadow: inset 0 1px 0 rgba(255,255,255,.75); }
+.theme-dark .mission-vision-grid article { background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.14); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
+.terrain-lines { position: absolute; inset: 0; z-index: 2; opacity: .22; pointer-events: none; }
+.terrain-lines svg { width: 100%; height: 100%; }
+.terrain-lines path { fill: none; stroke: #747875; stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.theme-dark .terrain-lines { opacity: .5; }
+.theme-dark .terrain-lines path { stroke: #f5f7fb; stroke-width: 1.1; }
+.shader-fallback { position: absolute; inset: 0; background: #f2f1ed; }
+.theme-dark .shader-fallback { background: #121a28; }
+
 @media (max-width: 1023px) {
   .service-details-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .service-detail-card:nth-child(4), .service-detail-card:nth-child(5) { min-height: 210px; }
@@ -189,5 +207,6 @@ img, video { display: block; max-width: 100%; }
   .service-detail-card { min-height: 0; }
   .mission-vision-heading { align-items: flex-start; flex-direction: column; }
   .mission-vision-heading h3 { margin-top: 0; }
+  .about-desktop-grid { grid-template-columns: 1fr; }
 }
 
