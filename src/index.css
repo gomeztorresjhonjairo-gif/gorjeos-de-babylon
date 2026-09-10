@@ -303,8 +303,9 @@ img, video { display: block; max-width: 100%; }
 }
 
 .mobile-sheet::before { display: none; }
-.mobile-sheet { background: rgba(255,255,255,.96); backdrop-filter: blur(18px); }
-.theme-dark .mobile-sheet { background: rgba(17,31,51,.96); }
+.mobile-sheet { background: rgba(255,255,255,.99); backdrop-filter: blur(18px); }
+.theme-dark .mobile-sheet { background: rgba(17,31,51,.99); }
+.mobile-menu-backdrop { display: none; }
 .pill-nav .brand-link { margin-left: 4px; }
 .mobile-sheet { visibility: hidden; pointer-events: none; }
 .mobile-sheet-open { visibility: visible; pointer-events: auto; }
@@ -329,5 +330,7 @@ img, video { display: block; max-width: 100%; }
 @media (max-width: 767px) {
   .brand-logo-compact { width: 32px; height: 32px; }
   .footer-brand .brand-logo { width: 40px; height: 40px; }
+  .mobile-menu-backdrop { position: fixed; inset: 0; z-index: 45; display: block; border: 0; background: rgba(9,15,28,.3); backdrop-filter: blur(2px); }
+  .theme-dark .mobile-menu-backdrop { background: rgba(0,0,0,.42); }
 }
 
