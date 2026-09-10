@@ -31,3 +31,44 @@ img, video { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
 
 .liquid-glass { background: rgba(255,255,255,.01); backdrop-filter: blur(4px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12), inset 0 1px 2px rgba(255,255,255,.18); }.liquid-glass-strong { background: rgba(255,255,255,.01); backdrop-filter: blur(50px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12), inset 0 1px 2px rgba(255,255,255,.18); }
+
+.mission-vision-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: clamp(42px, 6vw, 78px); }
+.mission-vision-grid article { padding: 24px; border-radius: 14px; background: #f5f5f5; }
+.mission-vision-grid article > span { color: #f26522; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.mission-vision-grid h3 { max-width: 440px; margin-top: 22px; color: #111827; font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 500; letter-spacing: -.035em; line-height: 1.25; }
+.contact-section { padding: clamp(64px, 9vw, 120px) 0; background: #fff; color: #111827; }
+.contact-container { display: grid; grid-template-columns: minmax(280px, .9fr) minmax(320px, 1.1fr); gap: clamp(48px, 10vw, 140px); align-items: start; }
+.contact-intro h2 { max-width: 620px; margin-top: 56px; font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 600; letter-spacing: -.06em; line-height: 1.02; }
+.contact-intro > p { max-width: 360px; margin-top: 26px; color: #6b7280; font-size: 15px; line-height: 1.6; }
+.contact-direct { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 42px; font-size: 13px; }
+.contact-direct span { margin-bottom: 5px; color: #9ca3af; }
+.contact-direct a { border-bottom: 1px solid #d1d5db; }
+.contact-direct a:hover { color: #f26522; border-color: #f26522; }
+.contact-form-wrap { padding-top: 58px; }
+.contact-form { display: flex; flex-direction: column; gap: 20px; }
+.contact-form label:not(.consent-field) { display: flex; flex-direction: column; gap: 8px; color: #6b7280; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.contact-form input, .contact-form select, .contact-form textarea { width: 100%; border: 0; border-bottom: 1px solid #d1d5db; border-radius: 0; outline: none; padding: 8px 0 12px; background: transparent; color: #111827; font-size: 16px; letter-spacing: -.02em; }
+.contact-form select { cursor: pointer; }
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: #f26522; }
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: #9ca3af; }
+.consent-field { display: flex; align-items: flex-start; gap: 9px; color: #6b7280; font-size: 11px; line-height: 1.45; }
+.consent-field input { width: 15px; height: 15px; margin-top: 1px; accent-color: #f26522; }
+.form-submit { display: inline-flex; align-items: center; align-self: flex-start; gap: 16px; margin-top: 5px; border: 0; border-radius: 999px; padding: 7px 8px 7px 20px; background: #f26522; color: white; font-size: 13px; font-weight: 600; transition: background .25s, transform .25s; }
+.form-submit:hover { background: #e05a1a; transform: translateY(-2px); }
+.form-submit span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: white; color: #f26522; }
+.contact-success { padding: 28px; border-radius: 14px; background: #f5f5f5; }
+.contact-success strong { font-size: 24px; letter-spacing: -.04em; }
+.contact-success p { margin-top: 14px; color: #6b7280; font-size: 14px; line-height: 1.55; }
+.contact-success a { color: #f26522; }
+.floating-contact { position: fixed; right: 20px; bottom: 20px; z-index: 30; display: flex; gap: 8px; }
+.floating-contact a { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: #111827; color: white; font-family: Arial, sans-serif; font-size: 11px; font-weight: 800; box-shadow: 0 6px 20px rgba(17,24,39,.2); transition: transform .25s, background .25s, color .25s; }
+.floating-contact a:hover { transform: translateY(-4px); background: #f26522; color: white; }
+.floating-telegram { font-size: 18px !important; }
+
+@media (max-width: 767px) {
+  .mission-vision-grid { grid-template-columns: 1fr; }
+  .contact-container { grid-template-columns: 1fr; gap: 30px; }
+  .contact-intro h2 { margin-top: 44px; }
+  .contact-form-wrap { padding-top: 0; }
+  .floating-contact { right: 14px; bottom: 14px; }
+}
