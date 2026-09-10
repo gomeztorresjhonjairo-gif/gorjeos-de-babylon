@@ -1,16 +1,16 @@
 import { StrictMode, useEffect, useState, type FormEvent } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ArrowRight, Clock, Link2, Menu, X } from 'lucide-react'
+import { ArrowRight, Clock, Link2, Menu, Moon, Sun, X } from 'lucide-react'
 import { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } from 'shaders/react'
 import './index.css'
 
 const smallImage = 'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260516_090123_74be96d4-9c1b-40cf-932a-96f4f4babed3.png&w=1280&q=85'
 const largeImage = 'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260516_090133_c157d30b-a99a-4477-bec1-a446149ec3f2.png&w=1280&q=85'
 
-function useLondonTime() {
+function useColombiaTime() {
   const [time, setTime] = useState('00:00')
   useEffect(() => {
-    const update = () => setTime(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()))
+    const update = () => setTime(new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()))
     update()
     const timer = window.setInterval(update, 1000)
     return () => window.clearInterval(timer)
@@ -49,15 +49,28 @@ function ShaderBackground() {
   )
 }
 
+function WhatsAppIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .4 5.3.4 11.8c0 2.1.6 4.1 1.6 5.9L.3 24l6.5-1.7a11.8 11.8 0 0 0 5.3 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6-3.5-8.3ZM12.1 21.5c-1.7 0-3.4-.5-4.9-1.3l-.4-.2-3.9 1 1-3.8-.3-.4a9.7 9.7 0 0 1-1.5-5.1c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.8-9.7 9.8Zm5.4-7.3c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-1.6-.8-2.7-1.4-3.8-3.2-.3-.5.3-.4.8-1.4.1-.2.1-.4 0-.6-.1-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.7 5.8 5.1.8.3 1.4.5 1.9.7.8.2 1.5.2 2 .1.6-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.1-1.3 0-.2-.2-.2-.4-.3Z" /></svg>
+}
+
+function TelegramIcon() {
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.8 3.2 2.7 10.6c-1.3.5-1.3 1.2-.2 1.5l4.9 1.5 1.9 5.8c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.5.3 1.7-.8l3.2-15.1c.3-1.4-.5-2-1.8-1.5ZM8.2 13.3l10.8-6.8c.5-.3.9-.1.5.2l-8.8 7.9-.3 3.3-1.7-4.6-3.5-1.1c-.8-.2-.8-.5.2-.9l2.8-1.1Z" /></svg>
+}
+
+function ThemeToggle({ darkMode, onToggle }: { darkMode: boolean; onToggle: () => void }) {
+  return <button className="theme-toggle" type="button" onClick={onToggle} aria-label={darkMode ? 'Activar modo claro' : 'Activar modo oscuro'} aria-pressed={darkMode} title={darkMode ? 'Modo claro' : 'Modo oscuro'}>{darkMode ? <Sun size={15} /> : <Moon size={15} />}</button>
+}
+
 function SectionBadge({ number, children }: { number: string; children: string }) {
   return <div className="section-badge"><span>{number}</span><strong>{children}</strong></div>
 }
 
-function ProjectCard({ video, title, description, dark = false, action }: { video: string; title: string; description: string; dark?: boolean; action: string }) {
+function ProjectCard({ video, title, description, eyebrow, outcome, dark = false, action }: { video: string; title: string; description: string; eyebrow: string; outcome: string; dark?: boolean; action: string }) {
   return (
     <article className="project-card">
       <div className={`project-media ${dark ? 'media-dark' : ''}`}>
         <video src={video} autoPlay muted loop playsInline className="project-video" />
+        <div className="project-overlay"><span>{eyebrow}</span><strong>{outcome}</strong></div>
         <a className={`project-action ${dark ? 'project-action-dark' : ''}`} href="#contacto"><span>{action}</span>{dark ? <ArrowRight size={14} /> : <Link2 size={14} />}</a>
       </div>
       <p>{description}</p><h3>{title}</h3>
@@ -88,24 +101,29 @@ function ContactSection() {
 }
 
 function App() {
-  const londonTime = useLondonTime()
+  const colombiaTime = useColombiaTime()
   const [menuOpen, setMenuOpen] = useState(false)
-  const navItems = [['Estudio', '#estudio'], ['Servicios', '#servicios'], ['Contacto', '#contacto']]
+  const [darkMode, setDarkMode] = useState(() => window.localStorage.getItem('gorjeos-theme') === 'dark')
+  useEffect(() => {
+    document.documentElement.dataset.theme = darkMode ? 'dark' : 'light'
+    window.localStorage.setItem('gorjeos-theme', darkMode ? 'dark' : 'light')
+  }, [darkMode])
+  const navItems = [['Inicio', '#inicio'], ['Nosotros', '#estudio'], ['Servicios', '#servicios'], ['Contacto', '#contacto']]
 
   return (
-    <main className="axion-page">
+    <main className={`axion-page ${darkMode ? 'theme-dark' : ''}`}>
       <section className="hero-section" id="inicio">
         <ShaderBackground />
         <div className="hero-overlay" aria-hidden="true" />
         <div className="hero-container">
           <header className="pill-nav">
             <div className="nav-left"><a href="#inicio" className="logo-circle" aria-label="Gorjeos de Babylon">GB</a><nav className="nav-links">{navItems.map(([label, href]) => <a key={label} href={href}>{label}</a>)}</nav></div>
-            <div className="nav-right"><span className="project-status">Empresas · Gobierno · Terceros</span><span className="london-time"><Clock size={14} /> {londonTime} en Londres</span><RollingButton>Solicitar información</RollingButton></div>
+            <div className="nav-right"><span className="london-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><RollingButton>Solicitar información</RollingButton></div>
             <button className="mobile-menu-button" type="button" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X size={17} /> : <Menu size={17} />}<span>{menuOpen ? 'Cerrar' : 'Menú'}</span></button>
           </header>
 
           <div className={`mobile-sheet ${menuOpen ? 'mobile-sheet-open' : ''}`}>
-            <span className="mobile-time"><Clock size={14} /> {londonTime} en Londres</span>
+            <div className="mobile-sheet-tools"><span className="mobile-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /></div>
             <nav>{navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)}>{label}<ArrowRight size={20} /></a>)}</nav>
             <RollingButton dark={false}>Solicitar información</RollingButton>
           </div>
@@ -135,14 +153,15 @@ function App() {
       </section>
 
       <section className="projects-section" id="servicios">
-        <div className="content-container"><SectionBadge number="2">Servicios que sí aterrizan</SectionBadge><h2>Soluciones para que una marca <em>se mueva.</em></h2><div className="project-grid"><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_122702_390f5305-8719-41d5-ae80-d23ab3796c28.mp4" title="Websites que convierten" description="Diseño, contenido y desarrollo para abrir conversaciones con las personas correctas." action="Solicitar información" /><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_123323_f909c2b8-ff6c-4edf-882b-8ebcdbe389b5.mp4" title="Apps y software a medida" description="Apps para contabilidad, gestión y operación que se sienten hechas para tu equipo." action="Solicitar información" dark /></div><div className="projects-footer"><span>También auditamos seguridad, UX/UI y creamos personajes con IA.</span><a href="#contacto">Cuéntanos qué necesitas <ArrowRight size={15} /></a></div></div>
+        <div className="content-container"><SectionBadge number="2">Servicios que sí aterrizan</SectionBadge><h2>Soluciones para que una marca <em>se mueva.</em></h2><div className="project-grid"><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_122702_390f5305-8719-41d5-ae80-d23ab3796c28.mp4" eyebrow="Captación y ventas" outcome="Una presencia digital que abre conversaciones." title="Websites + embudo digital" description="Landing pages, contenido y automatizaciones para conseguir clientes con una inversión accesible." action="Solicitar información" /><ProjectCard video="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_123323_f909c2b8-ff6c-4edf-882b-8ebcdbe389b5.mp4" eyebrow="Operación a medida" outcome="Herramientas que trabajan como tu equipo." title="Apps y software empresarial" description="Aplicaciones para contabilidad, gestión y operación, pensadas alrededor de los procesos reales de tu empresa." action="Solicitar información" dark /></div><div className="projects-footer"><span>También auditamos seguridad, UX/UI y creamos personajes con IA.</span><a href="#contacto">Cuéntanos qué necesitas <ArrowRight size={15} /></a></div></div>
       </section>
 
       <ContactSection />
       <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="logo-circle">GB</a><span>Gorjeos de Babylon</span></div><div className="footer-contact"><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/573212155883" target="_blank" rel="noreferrer">WhatsApp +57 321 215 5883</a><a href="tel:+34695018080">España +34 695 018 080</a><a href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer">Telegram · gorjeosbabylon</a></div><div className="footer-meta"><span>Colombia · España</span><span>© 2026 Gorjeos de Babylon</span><a href="#inicio">Volver arriba ↑</a></div></footer>
-      <div className="floating-contact" aria-label="Contacto directo"><a className="floating-whatsapp" href="https://wa.me/573212155883" target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp">wa</a><a className="floating-telegram" href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer" aria-label="Escribir por Telegram">➤</a></div>
+      <div className="floating-contact" aria-label="Contacto directo"><a className="floating-whatsapp" href="https://wa.me/573212155883" target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp"><WhatsAppIcon /></a><a className="floating-telegram" href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer" aria-label="Escribir por Telegram"><TelegramIcon /></a></div>
     </main>
   )
 }
 
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>)
+
