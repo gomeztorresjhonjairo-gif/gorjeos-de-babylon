@@ -76,10 +76,16 @@ function SectionBadge({ number, children }: { number: string; children: string }
   return <div className="section-badge"><span>{number}</span><strong>{children}</strong></div>
 }
 
+function CardCopy({ text }: { text: string }) {
+  const sentenceBreak = text.indexOf('. ')
+  if (sentenceBreak === -1) return <p>{text}</p>
+  return <p>{text.slice(0, sentenceBreak + 1)}<br />{text.slice(sentenceBreak + 2)}</p>
+}
+
 function ServiceDetails() {
   return (
     <div className="service-details-grid">
-      {serviceDetails.map(({ label, description, Icon }) => <article className="service-detail-card" key={label}><div className="service-detail-icon"><Icon size={19} /></div><span>{label}</span><p>{description}</p><a href="#contacto">Explorar solución <ArrowRight size={14} /></a></article>)}
+      {serviceDetails.map(({ label, description, Icon }) => <article className="service-detail-card" key={label}><div className="service-detail-icon"><Icon size={19} /></div><span>{label}</span><CardCopy text={description} /><a href="#contacto">Explorar solución <ArrowRight size={14} /></a></article>)}
     </div>
   )
 }
@@ -108,7 +114,7 @@ function ProjectCard({ video, title, description, eyebrow, outcome, dark = false
 }
 
 function AdditionalServiceCard({ eyebrow, title, description, Icon }: { eyebrow: string; title: string; description: string; Icon: typeof ShieldCheck }) {
-  return <article className="additional-service-card"><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><p>{description}</p><a href="#contacto">Iniciar proyecto <ArrowRight size={14} /></a></div></article>
+  return <article className="additional-service-card"><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><CardCopy text={description} /><a href="#contacto">Iniciar proyecto <ArrowRight size={14} /></a></div></article>
 }
 
 function ContactSection() {
