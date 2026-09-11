@@ -76,6 +76,11 @@ function SectionBadge({ number, children }: { number: string; children: string }
   return <div className="section-badge"><span>{number}</span><strong>{children}</strong></div>
 }
 
+function CardCopy({ text }: { text: string }) {
+  const sentences = text.split(/(?<=[.!?])\s+/)
+  return <p>{sentences.map((sentence, index) => <span key={`${sentence}-${index}`}>{sentence}{index < sentences.length - 1 ? <br /> : null}</span>)}</p>
+}
+
 function ServiceDetails() {
   return (
     <div className="service-details-grid">
@@ -108,7 +113,7 @@ function ProjectCard({ video, title, description, eyebrow, outcome, dark = false
 }
 
 function AdditionalServiceCard({ eyebrow, title, description, Icon }: { eyebrow: string; title: string; description: string; Icon: typeof ShieldCheck }) {
-  return <article className="additional-service-card"><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><p>{description}</p><a href="#contacto">Iniciar proyecto <ArrowRight size={14} /></a></div></article>
+  return <article className="additional-service-card"><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><CardCopy text={description} /><a href="#contacto">Iniciar proyecto <ArrowRight size={14} /></a></div></article>
 }
 
 function ContactSection() {
