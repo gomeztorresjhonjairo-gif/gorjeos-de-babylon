@@ -338,3 +338,10 @@ img, video { display: block; max-width: 100%; }
   .theme-dark .mobile-menu-backdrop { background: rgba(0,0,0,.42); }
 }
 
+@media (max-width: 767px) {
+  .axion-footer { padding-bottom: 112px; text-align: center; }
+  .footer-brand { justify-content: center; }
+  .footer-contact, .footer-meta { align-items: center; }
+  .footer-meta span, .footer-meta a { text-align: center; }
+}
+
