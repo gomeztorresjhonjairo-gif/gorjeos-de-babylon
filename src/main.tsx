@@ -85,7 +85,7 @@ function CardCopy({ text }: { text: string }) {
 function ServiceDetails() {
   return (
     <div className="service-details-grid">
-      {serviceDetails.map(({ label, description, Icon }) => <article className="service-detail-card" key={label}><div className="service-detail-icon"><Icon size={19} /></div><span>{label}</span><CardCopy text={description} /><a href="#contacto">Explorar solución <ArrowRight size={14} /></a></article>)}
+      {serviceDetails.map(({ label, description, Icon }) => <article className="service-detail-card" key={label}><div className="service-detail-icon"><Icon size={19} /></div><span>{label}</span><p>{description}</p><a href="#contacto">Explorar solución <ArrowRight size={14} /></a></article>)}
     </div>
   )
 }
