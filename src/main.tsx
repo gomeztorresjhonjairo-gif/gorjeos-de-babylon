@@ -201,7 +201,7 @@ function FAQSection() {
     <section className="faq-section" id="preguntas">
       <div className="content-container">
         <SectionBadge number="4">Hablemos claro</SectionBadge>
-        <div className="faq-layout"><div><h2>Preguntas que conviene resolver <em>antes de empezar.</em></h2><p>Si no encuentras la respuesta que buscas, cuéntanos tu situación y la revisamos contigo.</p><a className="faq-contact-link" href="#contacto">Cuéntanos tu reto <ArrowRight size={15} /></a></div><div className="faq-list">{faqItems.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div>
+        <div className="faq-layout"><div><h2>Preguntas que conviene resolver <em>antes de empezar.</em></h2><p>Si no encuentras la respuesta que buscas, cuéntanos tu situación y la revisamos contigo.</p><a className="faq-contact-link" href="#contacto">Cuéntanos tu reto <ArrowRight size={15} /></a></div><div className="faq-list">{faqItems.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><div className="faq-answer"><p>{answer}</p></div></details>)}</div></div>
       </div>
     </section>
   )
