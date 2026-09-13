@@ -421,3 +421,120 @@ img, video { display: block; max-width: 100%; }
   .footer-meta span, .footer-meta a { text-align: center; }
 }
 
+/* Footer: jerarquía clara y espacio reservado para los contactos flotantes */
+.axion-footer {
+  grid-template-columns: minmax(190px, .8fr) minmax(300px, 1.55fr) minmax(180px, .75fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 72px);
+  padding: clamp(36px, 4vw, 56px) clamp(24px, 3.3vw, 48px);
+  padding-right: clamp(190px, 14vw, 240px);
+}
+
+.footer-brand {
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-brand .brand-logo {
+  width: 56px;
+  height: 56px;
+  max-height: none;
+}
+
+.footer-brand span {
+  color: #f8fafc;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.footer-message {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-message p {
+  margin: 0;
+  color: #f8fafc;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.footer-message span {
+  color: #9ca3af;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.footer-contact {
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.footer-contact > a:first-child {
+  color: #f8fafc;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.footer-top-link {
+  color: #f8fafc;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.footer-contact small {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.mission-vision-card-inner-visible {
+  animation-duration: 1.2s;
+  animation-timing-function: linear;
+}
+
+@media (max-width: 767px) {
+  .axion-footer {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 32px 24px 112px;
+    text-align: center;
+  }
+
+  .footer-brand {
+    justify-content: center;
+  }
+
+  .footer-brand .brand-logo {
+    width: 52px;
+    height: 52px;
+  }
+
+  .footer-brand span {
+    font-size: 16px;
+  }
+
+  .footer-message {
+    align-items: center;
+  }
+
+  .footer-message p {
+    max-width: 340px;
+    font-size: 15px;
+  }
+
+  .footer-message span {
+    font-size: 12px;
+  }
+
+  .footer-contact {
+    align-items: center;
+  }
+
+  .footer-top-link {
+    font-size: 15px;
+  }
+}
+

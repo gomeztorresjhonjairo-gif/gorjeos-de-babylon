@@ -260,7 +260,7 @@ function App() {
       </section>
 
       <ContactSection />
-      <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="brand-link"><BrandLogo /></a></div><div className="footer-contact"><a href="#contacto">Iniciar proyecto</a></div><div className="footer-meta"><span>¡No Implementamos IA, diseñamos estructuras digitales que DOMINAN!</span><span>Gorjeos de Babylon: La Cúspide de tu Ambición.</span><span>© 2026 Gorjeos de Babylon</span><a href="#inicio">Volver arriba ↑</a></div></footer>
+      <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="brand-link"><BrandLogo /></a><span>Gorjeos de Babylon</span></div><div className="footer-message"><p>¡No implementamos IA, diseñamos estructuras digitales que dominan!</p><span>Gorjeos de Babylon: La Cúspide de tu Ambición.</span></div><div className="footer-contact"><a href="#contacto">Iniciar proyecto</a><a className="footer-top-link" href="#inicio">Volver arriba ↑</a><small>© 2026 Gorjeos de Babylon</small></div></footer>
       <div className="floating-contact" aria-label="Contacto directo"><a className="floating-whatsapp" href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp"><WhatsAppIcon /></a><a className="floating-telegram" href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer" aria-label="Escribir por Telegram"><TelegramIcon /></a></div>
     </main>
     <Analytics />
