@@ -44,3 +44,16 @@ La opción circular de la fila superior central funcionaría como avatar o sello
 ## Alcance de esta iteración
 
 Esta rama contiene únicamente la propuesta de estructura, confianza, FAQ y el ajuste de Telegram. `main` y `correcciones` no se modifican con estos cambios.
+
+## Criterio de animación aplicado
+
+La referencia competitiva tiene una presencia animada más intensa, con estados de carga, navegación dinámica, carruseles, logos y prueba social. En Gorjeos se eligió una capa intermedia:
+
+- Entrada inicial breve del contenido principal.
+- Aparición una sola vez al entrar en viewport para tarjetas de servicios.
+- Desfase leve entre tarjetas para crear ritmo sin convertirlo en una cascada lenta.
+- Elevación corta en hover y foco visible para teclado.
+- Apertura suave de las respuestas FAQ.
+- Respeto de `prefers-reduced-motion` para desactivar el movimiento cuando el dispositivo o la persona lo solicita.
+
+Se evitó añadir más vídeos, bucles permanentes o animaciones de fondo adicionales. La intención es mejorar la percepción de calidad sin aumentar solicitudes de red ni mantener trabajo constante innecesario en el navegador.

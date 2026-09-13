@@ -840,3 +840,92 @@ img, video { display: block; max-width: 100%; }
   }
 }
 
+/* Restrained motion system: CSS transitions plus one-shot scroll reveals. */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .62s cubic-bezier(.22, .61, .36, 1), transform .62s cubic-bezier(.22, .61, .36, 1), border-color .3s, box-shadow .3s;
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+.service-details-grid .service-detail-card:nth-child(2) { transition-delay: 70ms; }
+.service-details-grid .service-detail-card:nth-child(3) { transition-delay: 140ms; }
+.service-details-grid .service-detail-card:nth-child(4) { transition-delay: 210ms; }
+.service-details-grid .service-detail-card:nth-child(5) { transition-delay: 280ms; }
+.service-offers-grid .additional-service-card:nth-child(2) { transition-delay: 70ms; }
+.service-offers-grid .additional-service-card:nth-child(3) { transition-delay: 140ms; }
+.service-offers-grid .additional-service-card:nth-child(4) { transition-delay: 210ms; }
+.service-offers-grid .additional-service-card:nth-child(5) { transition-delay: 280ms; }
+
+.hero-content .hero-label,
+.hero-content h1,
+.hero-content .hero-cta-row {
+  animation: hero-rise .72s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+.hero-content h1 { animation-delay: 100ms; }
+.hero-content .hero-cta-row { animation-delay: 180ms; }
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.service-detail-card:hover,
+.additional-service-card:hover,
+.expectation-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-detail-card:focus-within,
+.additional-service-card:focus-within,
+.expectation-card:focus-within {
+  outline: 2px solid rgba(242, 101, 34, .45);
+  outline-offset: 3px;
+}
+
+.faq-list details[open] p {
+  animation: faq-open .28s ease-out both;
+}
+
+@keyframes faq-open {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+  .scroll-reveal {
+    transform: translateY(12px);
+    transition-duration: .5s;
+  }
+
+  .service-details-grid .service-detail-card:nth-child(n),
+  .service-offers-grid .additional-service-card:nth-child(n) {
+    transition-delay: 0ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal.is-revealed,
+  .service-detail-card:hover,
+  .additional-service-card:hover,
+  .expectation-card:hover {
+    transform: none;
+    transition: none;
+  }
+
+  .hero-content .hero-label,
+  .hero-content h1,
+  .hero-content .hero-cta-row,
+  .faq-list details[open] p {
+    animation: none;
+  }
+}
+

@@ -27,6 +27,26 @@ function useColombiaTime() {
   return time
 }
 
+function useRevealOnScroll<T extends HTMLElement>() {
+  const ref = useRef<T>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const node = ref.current
+    if (!node) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true)
+        observer.unobserve(node)
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  return { ref, isVisible }
+}
+
 function RollingButton({ children, dark = true, href = '#contacto', onClick }: { children: string; dark?: boolean; href?: string; onClick?: (event: MouseEvent<HTMLAnchorElement>) => void }) {
   return (
     <a className={`rolling-button group ${dark ? 'rolling-dark' : 'rolling-orange'}`} href={href} onClick={onClick}>
@@ -104,9 +124,14 @@ function CardCopy({ text }: { text: string }) {
 function ServiceDetails() {
   return (
     <div className="service-details-grid">
-      {serviceDetails.map(({ label, description, Icon }) => <article className="service-detail-card" key={label}><div className="service-detail-icon"><Icon size={19} /></div><span>{label}</span><p>{description}</p><a href="#contacto">Explorar solución <ArrowRight size={14} /></a></article>)}
+      {serviceDetails.map((service) => <ServiceDetailCard key={service.label} {...service} />)}
     </div>
   )
+}
+
+function ServiceDetailCard({ label, description, Icon }: { label: string; description: string; Icon: typeof ShieldCheck }) {
+  const { ref, isVisible } = useRevealOnScroll<HTMLElement>()
+  return <article ref={ref} className={`service-detail-card scroll-reveal${isVisible ? ' is-revealed' : ''}`}><div className="service-detail-icon"><Icon size={19} /></div><span>{label}</span><p>{description}</p><a href="#contacto">Explorar solución <ArrowRight size={14} /></a></article>
 }
 
 function ProjectCard({ video, title, description, eyebrow, outcome, dark = false, action }: { video: string; title: string; description: string; eyebrow: string; outcome: string; dark?: boolean; action: string }) {
@@ -133,7 +158,8 @@ function ProjectCard({ video, title, description, eyebrow, outcome, dark = false
 }
 
 function AdditionalServiceCard({ eyebrow, title, description, Icon }: { eyebrow: string; title: string; description: string; Icon: typeof ShieldCheck }) {
-  return <article className="additional-service-card"><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><CardCopy text={description} /><a href="#contacto">Iniciar proyecto <ArrowRight size={14} /></a></div></article>
+  const { ref, isVisible } = useRevealOnScroll<HTMLElement>()
+  return <article ref={ref} className={`additional-service-card scroll-reveal${isVisible ? ' is-revealed' : ''}`}><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><CardCopy text={description} /><a href="#contacto">Iniciar proyecto <ArrowRight size={14} /></a></div></article>
 }
 
 const expectations = [
