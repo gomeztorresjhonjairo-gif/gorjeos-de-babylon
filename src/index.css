@@ -849,6 +849,29 @@ img, video { display: block; max-width: 100%; }
   padding-bottom: 22px;
 }
 
+/* Give services the same warm brand language as FAQ without turning the cards into a wall of orange. */
+.projects-section {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(242, 101, 34, .1), transparent 27%),
+    linear-gradient(135deg, #fff4ec 0%, #fffaf7 56%, #ffefe4 100%);
+}
+
+.projects-section .section-terrain-lines {
+  opacity: .18;
+}
+
+.projects-section .section-terrain-lines path {
+  stroke: rgba(242, 101, 34, .32);
+}
+
+.theme-dark .projects-section {
+  background: #1b2636;
+}
+
+.theme-dark .projects-section .section-terrain-lines path {
+  stroke: #d7dee8;
+}
+
 .faq-list details[open] > p {
   animation: none;
 }
