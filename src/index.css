@@ -338,6 +338,47 @@ img, video { display: block; max-width: 100%; }
   .theme-dark .mobile-menu-backdrop { background: rgba(0,0,0,.42); }
 }
 
+/* Interacción sutil para las tarjetas de misión y visión */
+.mission-vision-card {
+  transform: perspective(900px) rotateY(0deg) translateY(0);
+  transform-style: preserve-3d;
+  transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mission-vision-card:hover {
+    transform: perspective(900px) rotateY(5deg) rotateX(1deg) translateY(-4px);
+    box-shadow: 0 18px 34px rgba(59,53,43,.13), inset 0 1px 0 rgba(255,255,255,.95);
+  }
+
+  .theme-dark .mission-vision-card:hover {
+    box-shadow: 0 18px 34px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+}
+
+@media (max-width: 767px) {
+  .mission-vision-card-visible {
+    animation: mission-vision-card-entry .8s cubic-bezier(.22,1,.36,1) both;
+  }
+}
+
+@keyframes mission-vision-card-entry {
+  0% { opacity: .7; transform: perspective(900px) rotateY(-8deg) translateY(8px); }
+  65% { opacity: 1; transform: perspective(900px) rotateY(3deg) translateY(-2px); }
+  100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mission-vision-card,
+  .mission-vision-card:hover,
+  .mission-vision-card-visible {
+    animation: none;
+    transform: none;
+    transition: none;
+  }
+}
+
 @media (max-width: 767px) {
   .axion-footer { padding-bottom: 112px; text-align: center; }
   .footer-brand { justify-content: center; }

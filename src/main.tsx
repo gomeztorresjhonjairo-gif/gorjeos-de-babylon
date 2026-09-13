@@ -76,6 +76,26 @@ function SectionBadge({ number, children }: { number: string; children: string }
   return <div className="section-badge"><span>{number}</span><strong>{children}</strong></div>
 }
 
+function MissionVisionCard({ label, Icon, children }: { label: string; Icon: typeof Target; children: string }) {
+  const cardRef = useRef<HTMLElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const card = cardRef.current
+    if (!card) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true)
+        observer.unobserve(card)
+      }
+    }, { threshold: 0.35 })
+    observer.observe(card)
+    return () => observer.disconnect()
+  }, [])
+
+  return <article ref={cardRef} className={`mission-vision-card${isVisible ? ' mission-vision-card-visible' : ''}`}><div className="mission-vision-top"><div className="mission-vision-icon"><Icon size={20} /></div><span>{label}</span></div><h3>{children}</h3></article>
+}
+
 function CardCopy({ text }: { text: string }) {
   const sentences = text.split(/(?<=[.!?])\s+/)
   return <p>{sentences.map((sentence, index) => <span key={`${sentence}-${index}`}>{sentence}{index < sentences.length - 1 ? <br /> : null}</span>)}</p>
@@ -229,7 +249,7 @@ function App() {
           </div>
           <div className="about-mobile-grid"><figure className="about-figure"><img src={largeImage} alt="Sesión de estrategia y tecnología digital" loading="lazy" decoding="async" /><figcaption><strong>Dirección con propósito</strong><span>La IA no es el futuro, es el presente que tu competencia aún no entiende.<br />Nosotros sí.</span></figcaption></figure><p>Convertimos retos de negocio en productos digitales que se entienden, se usan y generan movimiento.</p><ul><li>Identificamos la raíz del problema.</li><li>Diseñamos la estrategia precisa.</li><li>Construimos para liderar.</li></ul><RollingButton dark={false} href="#contacto">Conoce nuestro estudio</RollingButton></div>
           <div className="mission-vision-heading"><span>Dirección de Gorjeos</span><h3>Tienes una visión y propósito que merecen existir.</h3></div>
-          <div className="mission-vision-grid"><article><div className="mission-vision-top"><div className="mission-vision-icon"><Target size={20} /></div><span>Misión</span></div><h3>Refinar sistemas inteligentes, que redefinan la soberanía digital de las empresas hispanohablantes, implementando IA, diseño web y desarrollo de aplicaciones con la seguridad de una fortaleza y la visión de un imperio.</h3></article><article><div className="mission-vision-top"><div className="mission-vision-icon"><Eye size={20} /></div><span>Visión</span></div><h3>Ser el horizonte tecnológico de referencia en todo el mercado hispanohablante, América y Europa, transformando la visión de nuestros socios en activos de valor incalculable, donde la seguridad blindada y la innovación convergen para crear la nueva élite del ecosistema digital global.</h3></article></div>
+          <div className="mission-vision-grid"><MissionVisionCard label="Misión" Icon={Target}>Refinar sistemas inteligentes, que redefinan la soberanía digital de las empresas hispanohablantes, implementando IA, diseño web y desarrollo de aplicaciones con la seguridad de una fortaleza y la visión de un imperio.</MissionVisionCard><MissionVisionCard label="Visión" Icon={Eye}>Ser el horizonte tecnológico de referencia en todo el mercado hispanohablante, América y Europa, transformando la visión de nuestros socios en activos de valor incalculable, donde la seguridad blindada y la innovación convergen para crear la nueva élite del ecosistema digital global.</MissionVisionCard></div>
           <div className="service-details-heading"><span>Arquitectura Digital Superior.</span><h3>Tú defines el desafío, nosotros garantizamos la ejecución.</h3><p>De un objetivo claro a una solución tangible: precisa, medible y superior.</p></div>
           <ServiceDetails />
         </div>
