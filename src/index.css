@@ -81,6 +81,27 @@ img, video { display: block; max-width: 100%; }
 .privacy-back-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 42px; font-size: 13px; font-weight: 700; }
 .consent-field a { color: #f26522; text-decoration: underline; text-underline-offset: 3px; }
 
+.privacy-page-shell { min-height: 100svh; padding: 24px clamp(20px, 5vw, 80px) 80px; background: #f5f5f2; color: #111827; }
+.privacy-page-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 980px; margin: 0 auto; }
+.privacy-page-brand, .privacy-page-back { display: inline-flex; align-items: center; gap: 9px; }
+.privacy-page-brand { color: #111827; font-size: 14px; font-weight: 700; }
+.privacy-page-brand img { width: 40px; height: 40px; }
+.privacy-page-back { color: #111827; font-size: 13px; }
+.privacy-page-card { max-width: 980px; margin: clamp(50px, 8vw, 100px) auto 0; padding: clamp(28px, 5vw, 68px); border: 1px solid #deddd7; border-radius: 24px; background: rgba(255,255,255,.82); box-shadow: 0 20px 50px rgba(17,24,39,.08); }
+.privacy-page-kicker { color: #f26522; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.privacy-page-card h1 { max-width: 760px; margin-top: 25px; color: #111827; font-size: clamp(2.4rem, 6vw, 5rem); font-weight: 600; letter-spacing: -.06em; line-height: .98; }
+.privacy-page-card .privacy-copy { max-width: 720px; }
+.privacy-page-card a:hover { color: #d94f0d; }
+
+@media (max-width: 767px) {
+  .privacy-page-shell { padding: 16px 20px 48px; }
+  .privacy-page-header { align-items: flex-start; }
+  .privacy-page-brand span { display: none; }
+  .privacy-page-card { margin-top: 42px; padding: 28px 22px 36px; border-radius: 18px; }
+  .privacy-page-card h1 { font-size: clamp(2.35rem, 12vw, 3.4rem); }
+  .privacy-page-card .privacy-copy { margin-top: 34px; }
+}
+
 .theme-dark .privacy-section { border-color: #29374c; background: #111827; }
 .theme-dark .privacy-section h2, .theme-dark .privacy-copy h3 { color: #f8fafc; }
 .theme-dark .privacy-updated, .theme-dark .privacy-copy p { color: #aab4c5; }

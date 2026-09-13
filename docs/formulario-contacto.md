@@ -10,4 +10,4 @@ En Vercel, dentro de las variables de entorno del proyecto, hay que añadir:
 
 El endpoint valida los campos, el consentimiento, un campo trampa invisible, el tiempo mínimo de interacción y la longitud máxima de los datos. La clave nunca debe guardarse en el repositorio ni en el código del navegador.
 
-La política informativa de tratamiento de datos está publicada en la sección `#privacidad` y enlazada desde el consentimiento del formulario. Está preparada para Gorjeos de Babylon S.A.S., con operación en Fusagasugá, Colombia, y debe revisarse con asesoría jurídica antes de convertirla en el documento legal definitivo.
+La política informativa de tratamiento de datos está publicada en `privacy.html` y enlazada desde el consentimiento del formulario y el pie de página. Está preparada para Gorjeos de Babylon S.A.S., con operación en Fusagasugá, Colombia, y debe revisarse con asesoría jurídica antes de convertirla en el documento legal definitivo.

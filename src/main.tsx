@@ -290,51 +290,13 @@ function ContactSection() {
     }
   }
 
-  const formContent = status === 'success' ? <div className="contact-success" role="status" aria-live="polite"><strong>Hemos recibido tu solicitud.</strong><p>Gracias por escribirnos. Revisaremos tu reto y te responderemos con el siguiente paso más útil.</p></div> : <form className="contact-form" onSubmit={handleSubmit} onFocusCapture={handleFormStart} noValidate={false}><label>Nombre<input required name="name" placeholder="Tu nombre" autoComplete="name" /></label><label>Correo electrónico<input required type="email" name="email" placeholder="tu@correo.com" autoComplete="email" /></label><label>¿Qué te interesa?<select required name="interest" value={selectedInterest} onChange={handleInterestChange}><option value="" disabled>Selecciona una opción</option><option>Website y embudo digital</option><option>App o software empresarial</option><option>Auditoría de ciberseguridad</option><option>Revisión UX / UI</option><option>Modelos o personajes con IA</option><option>Solo quiero conocer la empresa</option></select></label><label>Mensaje<textarea required name="message" rows={4} placeholder="Cuéntanos brevemente qué necesitas..." /></label><label className="contact-honeypot" aria-hidden="true">Sitio web<input tabIndex={-1} autoComplete="off" name="website" /></label><label className="consent-field"><input required type="checkbox" name="consent" /><span>Autorizo a Gorjeos de Babylon a enviarme información relacionada con sus servicios. Puedo retirar esta autorización cuando quiera. Consulta la <a href="#privacidad" onClick={(event) => event.stopPropagation()}>política de privacidad</a>.</span></label>{status === 'error' && <p className="contact-form-error" role="alert">{errorMessage}</p>}<button className="form-submit" type="submit" disabled={status === 'submitting'}>{status === 'submitting' ? 'Enviando…' : 'Enviar solicitud'} <span><ArrowRight size={15} /></span></button></form>
+  const formContent = status === 'success' ? <div className="contact-success" role="status" aria-live="polite"><strong>Hemos recibido tu solicitud.</strong><p>Gracias por escribirnos. Revisaremos tu reto y te responderemos con el siguiente paso más útil.</p></div> : <form className="contact-form" onSubmit={handleSubmit} onFocusCapture={handleFormStart} noValidate={false}><label>Nombre<input required name="name" placeholder="Tu nombre" autoComplete="name" /></label><label>Correo electrónico<input required type="email" name="email" placeholder="tu@correo.com" autoComplete="email" /></label><label>¿Qué te interesa?<select required name="interest" value={selectedInterest} onChange={handleInterestChange}><option value="" disabled>Selecciona una opción</option><option>Website y embudo digital</option><option>App o software empresarial</option><option>Auditoría de ciberseguridad</option><option>Revisión UX / UI</option><option>Modelos o personajes con IA</option><option>Solo quiero conocer la empresa</option></select></label><label>Mensaje<textarea required name="message" rows={4} placeholder="Cuéntanos brevemente qué necesitas..." /></label><label className="contact-honeypot" aria-hidden="true">Sitio web<input tabIndex={-1} autoComplete="off" name="website" /></label><label className="consent-field"><input required type="checkbox" name="consent" /><span>Autorizo a Gorjeos de Babylon a enviarme información relacionada con sus servicios. Puedo retirar esta autorización cuando quiera. Consulta la <a href="/privacy.html" target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>política de privacidad</a>.</span></label>{status === 'error' && <p className="contact-form-error" role="alert">{errorMessage}</p>}<button className="form-submit" type="submit" disabled={status === 'submitting'}>{status === 'submitting' ? 'Enviando…' : 'Enviar solicitud'} <span><ArrowRight size={15} /></span></button></form>
 
   return (
     <section className="contact-section" id="contacto">
       <div className="content-container contact-container">
         <div className="contact-intro"><SectionBadge number="5">Inicia la construcción</SectionBadge><h2>Tu proyecto merece una respuesta a la altura. <br className="desktop-break" />Empecemos a construir algo extraordinario.</h2><p>Comparte con nosotros tu objetivo y tu información de contacto. Te acompañamos desde el planteamiento de tu idea inicial hasta la materialización de tu proyecto.</p><div className="contact-direct"><span>O contáctanos directamente →</span><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" onClick={() => trackContact('whatsapp', 'contact_direct')}>WhatsApp · +34 695 018 080</a></div></div>
         <div className="contact-form-wrap">{formContent}</div>
-      </div>
-    </section>
-  )
-}
-
-function PrivacyPolicySection() {
-  return (
-    <section className="privacy-section" id="privacidad">
-      <div className="content-container privacy-container">
-        <SectionBadge number="6">Privacidad</SectionBadge>
-        <h2>Política de tratamiento de datos personales.</h2>
-        <p className="privacy-updated">Última actualización: 13 de septiembre de 2026</p>
-        <div className="privacy-copy">
-          <h3>1. Responsable del tratamiento</h3>
-          <p>Gorjeos de Babylon S.A.S., con operación y domicilio en Fusagasugá, Colombia, es responsable del tratamiento de los datos personales recopilados a través de este sitio web.</p>
-
-          <h3>2. Datos que podemos recopilar</h3>
-          <p>Podemos solicitar tu nombre, correo electrónico, servicio de interés, mensaje y la autorización correspondiente. También pueden tratarse datos técnicos y de navegación necesarios para el funcionamiento, la analítica y la seguridad del sitio.</p>
-
-          <h3>3. Finalidades</h3>
-          <p>Usamos la información para responder solicitudes, entender el reto planteado, coordinar comunicaciones relacionadas con nuestros servicios y enviar información comercial únicamente cuando exista autorización. Vercel Analytics y Speed Insights pueden tratar datos técnicos para medir el uso y el rendimiento de la página.</p>
-
-          <h3>4. Encargados y proveedores</h3>
-          <p>Para alojar el sitio, medir su funcionamiento y gestionar las solicitudes podremos utilizar proveedores como Vercel y Resend. Estos proveedores tratarán la información conforme a sus propias políticas y a las instrucciones aplicables del responsable.</p>
-
-          <h3>5. Derechos del titular</h3>
-          <p>Como titular puedes conocer, actualizar, rectificar y solicitar la supresión de tus datos cuando sea procedente; pedir prueba de la autorización; conocer el uso dado a la información; revocar la autorización y presentar consultas o reclamos. Para ejercerlos, escribe a <a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a>.</p>
-
-          <h3>6. Conservación y seguridad</h3>
-          <p>Conservaremos la información durante el tiempo necesario para atender la solicitud, mantener la relación correspondiente y cumplir obligaciones legales. Aplicaremos medidas razonables de seguridad, aunque ningún sistema conectado a Internet está completamente libre de riesgos.</p>
-
-          <h3>7. Marco aplicable</h3>
-          <p>Esta política se interpreta de acuerdo con el régimen colombiano de protección de datos personales, incluyendo la Ley 1581 de 2012 y sus normas reglamentarias. Puedes consultar información oficial en la <a href="https://www.sic.gov.co/tema/proteccion-de-datos-personales" target="_blank" rel="noreferrer">Superintendencia de Industria y Comercio</a>.</p>
-
-          <h3>8. Cambios</h3>
-          <p>Podremos actualizar esta política cuando cambien las finalidades, los proveedores o los requisitos aplicables. La versión vigente permanecerá publicada en esta página.</p>
-        </div>
-        <a className="privacy-back-link" href="#contacto">Volver al formulario <ArrowRight size={15} /></a>
       </div>
     </section>
   )
@@ -444,8 +406,7 @@ function App() {
       <ExpectationsCarousel />
       <FAQSection />
       <ContactSection />
-      <PrivacyPolicySection />
-      <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="brand-link"><BrandLogo /></a><span>Gorjeos de Babylon</span></div><div className="footer-message"><p>¡No implementamos IA, diseñamos estructuras digitales que dominan!</p><span>Gorjeos de Babylon: La Cúspide de tu Ambición.</span></div><div className="footer-contact"><a href="#contacto" onClick={() => trackCta('Iniciar proyecto', 'footer')}>Iniciar proyecto</a><a href="#privacidad" onClick={() => trackCta('Política de privacidad', 'footer')}>Política de privacidad</a><a className="footer-top-link" href="#inicio" onClick={() => trackCta('Volver arriba', 'footer')}>Volver arriba ↑</a><small>© 2026 Gorjeos de Babylon</small></div></footer>
+      <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="brand-link"><BrandLogo /></a><span>Gorjeos de Babylon</span></div><div className="footer-message"><p>¡No implementamos IA, diseñamos estructuras digitales que dominan!</p><span>Gorjeos de Babylon: La Cúspide de tu Ambición.</span></div><div className="footer-contact"><a href="#contacto" onClick={() => trackCta('Iniciar proyecto', 'footer')}>Iniciar proyecto</a><a href="/privacy.html" target="_blank" rel="noreferrer" onClick={() => trackCta('Política de privacidad', 'footer')}>Política de privacidad</a><a className="footer-top-link" href="#inicio" onClick={() => trackCta('Volver arriba', 'footer')}>Volver arriba ↑</a><small>© 2026 Gorjeos de Babylon</small></div></footer>
       <div className="floating-contact" aria-label="Contacto directo"><a className="floating-whatsapp" href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp" onClick={() => trackContact('whatsapp', 'floating')}><WhatsAppIcon /></a><a className="floating-telegram" href="https://t.me/GoBbylon" target="_blank" rel="noreferrer" aria-label="Escribir por Telegram" onClick={() => trackContact('telegram', 'floating')}><TelegramIcon /></a></div>
     </main>
     <Analytics />
