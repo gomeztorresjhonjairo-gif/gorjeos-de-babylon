@@ -93,7 +93,7 @@ function MissionVisionCard({ label, Icon, children }: { label: string; Icon: typ
     return () => observer.disconnect()
   }, [])
 
-  return <article ref={cardRef} className={`mission-vision-card${isVisible ? ' mission-vision-card-visible' : ''}`}><div className="mission-vision-top"><div className="mission-vision-icon"><Icon size={20} /></div><span>{label}</span></div><h3>{children}</h3></article>
+  return <article ref={cardRef} className={`mission-vision-card${isVisible ? ' mission-vision-card-visible' : ''}`}><div className={`mission-vision-card-inner${isVisible ? ' mission-vision-card-inner-visible' : ''}`}><div className="mission-vision-card-face mission-vision-card-front"><div className="mission-vision-top"><div className="mission-vision-icon"><Icon size={20} /></div><span>{label}</span></div><h3>{children}</h3></div><div className="mission-vision-card-face mission-vision-card-back" aria-hidden="true"><Icon size={34} /><span>{label}</span></div></div></article>
 }
 
 function CardCopy({ text }: { text: string }) {

@@ -338,12 +338,47 @@ img, video { display: block; max-width: 100%; }
   .theme-dark .mobile-menu-backdrop { background: rgba(0,0,0,.42); }
 }
 
-/* Interacción sutil para las tarjetas de misión y visión */
+/* Microinteracción 3D para las tarjetas de misión y visión */
 .mission-vision-card {
+  padding: 0;
+  overflow: hidden;
   transform: perspective(900px) rotateY(0deg) translateY(0);
   transform-style: preserve-3d;
   transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease;
   will-change: transform;
+}
+
+.mission-vision-card-inner {
+  position: relative;
+  min-height: 245px;
+  transform-style: preserve-3d;
+}
+
+.mission-vision-card-face {
+  box-sizing: border-box;
+  min-height: 245px;
+  backface-visibility: hidden;
+}
+
+.mission-vision-card-front {
+  padding: 24px;
+}
+
+.mission-vision-card-back {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  border-radius: 13px;
+  background: #f26522;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transform: rotateY(180deg);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -358,21 +393,21 @@ img, video { display: block; max-width: 100%; }
 }
 
 @media (max-width: 767px) {
-  .mission-vision-card-visible {
-    animation: mission-vision-card-entry .8s cubic-bezier(.22,1,.36,1) both;
+  .mission-vision-card-inner-visible {
+    animation: mission-vision-card-spin 1.05s cubic-bezier(.22,1,.36,1) both;
   }
 }
 
-@keyframes mission-vision-card-entry {
-  0% { opacity: .7; transform: perspective(900px) rotateY(-8deg) translateY(8px); }
-  65% { opacity: 1; transform: perspective(900px) rotateY(3deg) translateY(-2px); }
-  100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateY(0); }
+@keyframes mission-vision-card-spin {
+  0% { transform: perspective(900px) rotateY(0deg); }
+  100% { transform: perspective(900px) rotateY(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .mission-vision-card,
   .mission-vision-card:hover,
-  .mission-vision-card-visible {
+  .mission-vision-card-inner,
+  .mission-vision-card-inner-visible {
     animation: none;
     transform: none;
     transition: none;
