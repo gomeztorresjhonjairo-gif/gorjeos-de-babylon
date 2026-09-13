@@ -1,6 +1,6 @@
 import { StrictMode, lazy, Suspense, useEffect, useRef, useState, type FormEvent, type MouseEvent } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ArrowRight, BarChart3, Clock, Code2, Eye, Link2, Menu, Moon, Palette, ShieldCheck, Sparkles, Sun, Target, X } from 'lucide-react'
+import { ArrowRight, BarChart3, ChevronLeft, ChevronRight, Clock, Code2, Eye, Link2, Menu, Moon, Palette, ShieldCheck, Sparkles, Sun, Target, X } from 'lucide-react'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import './index.css'
@@ -136,6 +136,51 @@ function AdditionalServiceCard({ eyebrow, title, description, Icon }: { eyebrow:
   return <article className="additional-service-card"><div className="service-placeholder"><Icon size={28} /><span>Visual del servicio</span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><CardCopy text={description} /><a href="#contacto">Iniciar proyecto <ArrowRight size={14} /></a></div></article>
 }
 
+const expectations = [
+  { eyebrow: '01 / CLARIDAD', title: 'Entendemos el reto antes de construir.', description: 'Empezamos por tus objetivos, usuarios y restricciones para convertir una conversación en una ruta posible.', Icon: Target },
+  { eyebrow: '02 / CRITERIO', title: 'Cada decisión tiene una razón.', description: 'Priorizamos lo que genera valor y explicamos el porqué de cada paso, sin añadir complejidad innecesaria.', Icon: ShieldCheck },
+  { eyebrow: '03 / PROGRESO', title: 'Ves cómo avanza tu proyecto.', description: 'Trabajamos por entregables visibles para que puedas validar, corregir y tomar decisiones con confianza.', Icon: ArrowRight },
+]
+
+function ExpectationsCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const move = (direction: number) => trackRef.current?.scrollBy({ left: direction * (trackRef.current.clientWidth * 0.82), behavior: 'smooth' })
+
+  return (
+    <section className="expectations-section" id="confianza">
+      <div className="content-container">
+        <SectionBadge number="3">Qué puedes esperar</SectionBadge>
+        <div className="expectations-heading"><h2>Una forma de trabajar <em>clara desde el primer día.</em></h2><p>No inventamos testimonios para convencerte. Te mostramos cómo acompañamos cada proyecto y qué puedes esperar de la colaboración.</p></div>
+        <div className="expectations-carousel">
+          <div className="expectations-track" ref={trackRef} role="list" aria-label="Principios de trabajo">
+            {expectations.map(({ eyebrow, title, description, Icon }) => <article className="expectation-card" key={eyebrow} role="listitem"><div className="expectation-icon"><Icon size={19} /></div><span>{eyebrow}</span><h3>{title}</h3><p>{description}</p></article>)}
+          </div>
+          <div className="expectations-controls"><button type="button" onClick={() => move(-1)} aria-label="Ver principio anterior"><ChevronLeft size={18} /></button><button type="button" onClick={() => move(1)} aria-label="Ver principio siguiente"><ChevronRight size={18} /></button></div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const faqItems = [
+  ['¿Cómo empieza un proyecto?', 'Comenzamos con una conversación de alcance para entender tu objetivo, tus usuarios, los sistemas actuales y las restricciones. Después proponemos una ruta por fases y un primer paso concreto.'],
+  ['¿Trabajan con empresas de Colombia y España?', 'Sí. Gorjeos de Babylon trabaja entre Colombia y España y puede acompañar proyectos de forma remota, con una comunicación adaptada a cada equipo.'],
+  ['¿Pueden trabajar sobre una operación o producto existente?', 'Sí. Podemos revisar una experiencia digital, una operación interna, una aplicación o una superficie expuesta antes de proponer mejoras.'],
+  ['¿Qué ocurre después de enviar mis datos?', 'Revisamos la información, identificamos el reto principal y te respondemos con el siguiente paso más útil. No necesitas llegar con una solución cerrada.'],
+  ['¿Puedo escribirles directamente por WhatsApp?', 'Sí. Puedes escribirnos por WhatsApp si prefieres una conversación rápida o usar el formulario si quieres explicar tu reto con más detalle.'],
+]
+
+function FAQSection() {
+  return (
+    <section className="faq-section" id="preguntas">
+      <div className="content-container">
+        <SectionBadge number="4">Hablemos claro</SectionBadge>
+        <div className="faq-layout"><div><h2>Preguntas que conviene resolver <em>antes de empezar.</em></h2><p>Si no encuentras la respuesta que buscas, cuéntanos tu situación y la revisamos contigo.</p><a className="faq-contact-link" href="#contacto">Cuéntanos tu reto <ArrowRight size={15} /></a></div><div className="faq-list">{faqItems.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div>
+      </div>
+    </section>
+  )
+}
+
 function ContactSection() {
   const [sent, setSent] = useState(false)
 
@@ -151,7 +196,7 @@ function ContactSection() {
   return (
     <section className="contact-section" id="contacto">
       <div className="content-container contact-container">
-        <div className="contact-intro"><SectionBadge number="3">Inicia la construcción</SectionBadge><h2>Tu proyecto merece una respuesta a la altura. <br className="desktop-break" />Empecemos a construir algo extraordinario.</h2><p>Comparte con nosotros tu objetivo y tu información de contacto. Te acompañamos desde el planteamiento de tu idea inicial hasta la materialización de tu proyecto.</p><div className="contact-direct"><span>O contáctanos directamente →</span><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer">WhatsApp · +34 695 018 080</a></div></div>
+        <div className="contact-intro"><SectionBadge number="5">Inicia la construcción</SectionBadge><h2>Tu proyecto merece una respuesta a la altura. <br className="desktop-break" />Empecemos a construir algo extraordinario.</h2><p>Comparte con nosotros tu objetivo y tu información de contacto. Te acompañamos desde el planteamiento de tu idea inicial hasta la materialización de tu proyecto.</p><div className="contact-direct"><span>O contáctanos directamente →</span><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer">WhatsApp · +34 695 018 080</a></div></div>
         <div className="contact-form-wrap">{sent ? <div className="contact-success"><strong>Gracias por escribirnos.</strong><p>Se abrió tu correo con la información preparada. Si no se abrió automáticamente, puedes escribirnos a <a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a>.</p></div> : <form className="contact-form" onSubmit={handleSubmit}><label>Nombre<input required name="name" placeholder="Tu nombre" /></label><label>Correo electrónico<input required type="email" name="email" placeholder="tu@correo.com" /></label><label>¿Qué te interesa?<select required name="interest" defaultValue=""><option value="" disabled>Selecciona una opción</option><option>Website y embudo digital</option><option>App o software empresarial</option><option>Auditoría de ciberseguridad</option><option>Revisión UX / UI</option><option>Modelos o personajes con IA</option><option>Solo quiero conocer la empresa</option></select></label><label>Mensaje<textarea required name="message" rows={4} placeholder="Cuéntanos brevemente qué necesitas..." /></label><label className="consent-field"><input required type="checkbox" name="consent" /><span>Autorizo a Gorjeos de Babylon a enviarme información relacionada con sus servicios. Puedo retirar esta autorización cuando quiera.</span></label><button className="form-submit" type="submit">Enviar solicitud <span><ArrowRight size={15} /></span></button></form>}</div>
       </div>
     </section>
@@ -167,7 +212,7 @@ function App() {
     document.documentElement.dataset.theme = darkMode ? 'dark' : 'light'
     window.localStorage.setItem('gorjeos-theme', darkMode ? 'dark' : 'light')
   }, [darkMode])
-  const navItems = [['Inicio', '#inicio'], ['Nosotros', '#estudio'], ['Servicios', '#servicios'], ['Contacto', '#contacto']]
+  const navItems = [['Inicio', '#inicio'], ['Nosotros', '#estudio'], ['Servicios', '#servicios'], ['Preguntas', '#preguntas'], ['Contacto', '#contacto']]
   const openMenu = () => {
     if (menuOpen) return
     window.history.pushState({ ...window.history.state, gorjeosMobileMenu: true }, '', window.location.href)
@@ -259,9 +304,11 @@ function App() {
         <SectionTerrainLines /><div className="content-container"><SectionBadge number="2">Servicios de Alto Impacto</SectionBadge><h2>Soluciones digitales para marcas que <em>lideran.</em></h2><div className="additional-services-heading"><span>Arquitectura de soluciones</span><h3>La solución a tu infraestructura digital desde el primer segundo.</h3><p>Señala tu visión estratégica y construiremos la hoja de ruta precisa para tu ambición, garantizando que cada paso te acerque a la supremacía operativa que deseas.</p></div><div className="service-offers-grid"><AdditionalServiceCard eyebrow="Captación y ventas" title="Websites + embudo digital" description="Recorridos digitales diseñados para guiar el interés hacia la compra. Claridad estratégica que atrae al cliente ideal y descarta el ruido." Icon={BarChart3} /><AdditionalServiceCard eyebrow="Operación a medida" title="Apps y software empresarial" description="Traducimos tus procesos internos de gestión en herramientas digitales intuitivas. Orden y eficiencia para que tu equipo eleve su foco hacia lo que realmente genera valor." Icon={Code2} /><AdditionalServiceCard eyebrow="Protección y confianza" title="Auditoría de ciberseguridad" description="Mapa completo de tus vulnerabilidades antes de que otros lo descubran. Tranquilidad basada en un panorama claro para que tomes el control de tu seguridad con absoluto criterio." Icon={ShieldCheck} /><AdditionalServiceCard eyebrow="Experiencia que convierte" title="Revisión UX / UI" description="Análisis preciso de los puntos exactos donde tu usuario duda o abandona. Transformamos interfaces en recorridos fluidos e intuitivos diseñados para persuadir y retener." Icon={Palette} /><AdditionalServiceCard eyebrow="Identidad y diferenciación" title="Modelos y personajes con IA" description="Creamos modelos y universos visuales exclusivos. Destaca en un entorno competitivo con una estética que solo tú puedes proyectar. ¡Que la identidad de tu marca sea irrepetible!" Icon={Sparkles} /></div><div className="projects-footer"><span>¿Tienes otro reto digital?</span><a href="#contacto">Iniciar proyecto <ArrowRight size={15} /></a></div></div>
       </section>
 
+      <ExpectationsCarousel />
+      <FAQSection />
       <ContactSection />
       <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="brand-link"><BrandLogo /></a><span>Gorjeos de Babylon</span></div><div className="footer-message"><p>¡No implementamos IA, diseñamos estructuras digitales que dominan!</p><span>Gorjeos de Babylon: La Cúspide de tu Ambición.</span></div><div className="footer-contact"><a href="#contacto">Iniciar proyecto</a><a className="footer-top-link" href="#inicio">Volver arriba ↑</a><small>© 2026 Gorjeos de Babylon</small></div></footer>
-      <div className="floating-contact" aria-label="Contacto directo"><a className="floating-whatsapp" href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp"><WhatsAppIcon /></a><a className="floating-telegram" href="https://t.me/gorjeosbabylon" target="_blank" rel="noreferrer" aria-label="Escribir por Telegram"><TelegramIcon /></a></div>
+      <div className="floating-contact" aria-label="Contacto directo"><a className="floating-whatsapp" href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp"><WhatsAppIcon /></a><a className="floating-telegram" href="https://t.me/GoBbylon" target="_blank" rel="noreferrer" aria-label="Escribir por Telegram"><TelegramIcon /></a></div>
     </main>
     <Analytics />
     <SpeedInsights />

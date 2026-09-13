@@ -73,6 +73,306 @@ img, video { display: block; max-width: 100%; }
   .floating-contact { right: 14px; bottom: 14px; }
 }
 
+/* Trust without invented testimonials: a lightweight process carousel and FAQ. */
+#confianza,
+#preguntas {
+  scroll-margin-top: 96px;
+}
+
+.expectations-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(64px, 9vw, 120px) 0;
+  background: #fffdf8;
+}
+
+.expectations-section > .content-container {
+  position: relative;
+  z-index: 1;
+}
+
+.expectations-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.expectations-heading h2 {
+  max-width: 650px;
+  margin: 0;
+  color: #111827;
+  font-size: clamp(2rem, 4.2vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -.05em;
+  line-height: 1.08;
+}
+
+.expectations-heading h2 em,
+.faq-layout h2 em {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.expectations-heading p {
+  max-width: 340px;
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.expectations-carousel {
+  position: relative;
+  margin-top: 42px;
+}
+
+.expectations-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 4px 4px 20px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.expectations-track::-webkit-scrollbar {
+  display: none;
+}
+
+.expectation-card {
+  flex: 0 0 calc((100% - 32px) / 3);
+  min-height: 245px;
+  padding: 24px;
+  scroll-snap-align: start;
+  border: 1px solid rgba(207, 204, 195, .8);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .72);
+  box-shadow: 0 16px 32px rgba(59, 53, 43, .08), inset 0 1px 0 rgba(255, 255, 255, .95);
+}
+
+.expectation-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 28px;
+  border-radius: 50%;
+  background: #f26522;
+  color: #fff;
+}
+
+.expectation-card > span {
+  color: #f26522;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.expectation-card h3 {
+  max-width: 290px;
+  margin: 16px 0 0;
+  color: #111827;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 600;
+  letter-spacing: -.04em;
+  line-height: 1.16;
+}
+
+.expectation-card p {
+  max-width: 330px;
+  margin-top: 14px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.expectations-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.expectations-controls button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #d8d5cc;
+  border-radius: 50%;
+  background: transparent;
+  color: #111827;
+}
+
+.expectations-controls button:hover {
+  border-color: #f26522;
+  color: #f26522;
+}
+
+.faq-section {
+  padding: clamp(64px, 9vw, 120px) 0;
+  background: #eeeee9;
+}
+
+.faq-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, .85fr) minmax(320px, 1.15fr);
+  gap: clamp(40px, 9vw, 130px);
+  align-items: start;
+  margin-top: 30px;
+}
+
+.faq-layout h2 {
+  max-width: 500px;
+  margin: 0;
+  color: #111827;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  font-weight: 600;
+  letter-spacing: -.05em;
+  line-height: 1.08;
+}
+
+.faq-layout > div > p {
+  max-width: 360px;
+  margin-top: 20px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.faq-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.faq-list {
+  border-top: 1px solid #d5d3cb;
+}
+
+.faq-list details {
+  border-bottom: 1px solid #d5d3cb;
+}
+
+.faq-list summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 0;
+  cursor: pointer;
+  list-style: none;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-list summary span {
+  color: #f26522;
+  font-size: 24px;
+  font-weight: 400;
+  transition: transform .25s;
+}
+
+.faq-list details[open] summary span {
+  transform: rotate(45deg);
+}
+
+.faq-list details p {
+  max-width: 620px;
+  margin: 0 0 20px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.theme-dark .expectations-section {
+  background: #151e2d;
+}
+
+.theme-dark .expectations-heading h2,
+.theme-dark .expectation-card h3,
+.theme-dark .faq-layout h2,
+.theme-dark .faq-list summary,
+.theme-dark .faq-contact-link {
+  color: #f8fafc;
+}
+
+.theme-dark .expectations-heading p,
+.theme-dark .expectation-card p,
+.theme-dark .faq-layout > div > p,
+.theme-dark .faq-list details p {
+  color: #aab4c5;
+}
+
+.theme-dark .expectation-card {
+  border-color: rgba(255, 255, 255, .14);
+  background: rgba(255, 255, 255, .06);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .16), inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+
+.theme-dark .expectations-controls button {
+  border-color: #344255;
+  color: #f8fafc;
+}
+
+.theme-dark .faq-section {
+  background: #111827;
+}
+
+.theme-dark .faq-list,
+.theme-dark .faq-list details {
+  border-color: #344255;
+}
+
+@media (max-width: 767px) {
+  .expectations-heading,
+  .faq-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .expectations-heading p {
+    margin-top: 20px;
+  }
+
+  .expectations-track {
+    padding-right: 20px;
+  }
+
+  .expectation-card {
+    flex-basis: 88%;
+    min-height: 225px;
+  }
+
+  .expectations-controls {
+    justify-content: flex-start;
+  }
+
+  .faq-layout {
+    gap: 38px;
+  }
+
+  .faq-layout > div,
+  .faq-list {
+    width: 100%;
+  }
+
+  .faq-list summary {
+    font-size: 15px;
+  }
+}
+
 /* Iteración de producto: navegación, contacto visual y modo oscuro */
 .partner-star { display: none; }
 .partner-badge { gap: 8px; }
