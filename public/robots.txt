@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://gorjeos-de-babylon.vercel.app/sitemap.xml
