@@ -536,28 +536,9 @@ img, video { display: block; max-width: 100%; }
 .terrain-lines path { fill: none; stroke: #747875; stroke-width: 1.4; vector-effect: non-scaling-stroke; }
 .theme-dark .terrain-lines { opacity: .5; }
 .theme-dark .terrain-lines path { stroke: #f5f7fb; stroke-width: 1.1; }
-.shader-fallback { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(125deg, #fffdf8 0%, #f1ede5 38%, #f8c6aa 56%, #f2f1ed 74%, #fffdf8 100%); background-size: 240% 240%; animation: shader-fallback-drift 12s ease-in-out infinite alternate; }
+.shader-fallback { position: absolute; inset: 0; overflow: hidden; background: #f2f1ed; }
 .shader-poster { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.shader-fallback::before { position: absolute; inset: -35%; background: conic-gradient(from 210deg at 50% 50%, transparent 0deg, rgba(242,101,34,.46) 44deg, rgba(255,224,205,.62) 94deg, transparent 142deg, rgba(242,101,34,.22) 218deg, transparent 286deg); filter: blur(44px); content: ''; animation: shader-fallback-orbit 16s linear infinite; will-change: transform; }
-.shader-fallback::after { position: absolute; inset: -15%; background: repeating-linear-gradient(122deg, transparent 0 18%, rgba(255,255,255,.36) 18.3% 18.7%, transparent 19% 32%); opacity: .62; content: ''; transform: rotate(-8deg); animation: shader-fallback-sweep 13s ease-in-out infinite alternate; will-change: transform, background-position; }
-.theme-dark .shader-fallback { background: linear-gradient(125deg, #121a28 0%, #1b2636 38%, #713c37 56%, #16243a 78%, #121a28 100%); background-size: 240% 240%; }
-.theme-dark .shader-fallback::before { background: conic-gradient(from 210deg at 50% 50%, transparent 0deg, rgba(242,101,34,.52) 44deg, rgba(91,70,81,.56) 94deg, transparent 142deg, rgba(242,101,34,.28) 218deg, transparent 286deg); }
-.theme-dark .shader-fallback::after { background: repeating-linear-gradient(122deg, transparent 0 18%, rgba(255,255,255,.12) 18.3% 18.7%, transparent 19% 32%); }
-
-@keyframes shader-fallback-drift {
-  from { background-position: 0% 50%; }
-  to { background-position: 100% 50%; }
-}
-
-@keyframes shader-fallback-orbit {
-  from { transform: rotate(0deg) scale(1); }
-  to { transform: rotate(360deg) scale(1.08); }
-}
-
-@keyframes shader-fallback-sweep {
-  from { transform: translate3d(-6%, 2%, 0) rotate(-8deg); }
-  to { transform: translate3d(6%, -2%, 0) rotate(-8deg); }
-}
+.theme-dark .shader-fallback { background: #121a28; }
 
 /* Legibilidad y embudo de servicios */
 .about-copy p, .about-mobile-grid > p { max-width: 430px; font-size: clamp(1.1rem, 1.55vw, 1.35rem); line-height: 1.45; }
