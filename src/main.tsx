@@ -204,9 +204,9 @@ function ExpectationsCarousel() {
   const move = (direction: number) => trackRef.current?.scrollBy({ left: direction * (trackRef.current.clientWidth * 0.82), behavior: 'smooth' })
 
   return (
-    <section className="expectations-section" id="confianza">
+    <section className="expectations-section" id="metodo">
       <div className="content-container">
-        <SectionBadge number="3">Método</SectionBadge>
+        <SectionBadge number="2">Método</SectionBadge>
         <div className="expectations-heading"><h2>Del problema a una solución que <em>puede evolucionar.</em></h2><p>Trabajamos con un recorrido claro: entender, diseñar, construir y optimizar. Así cada decisión tiene un propósito y puedes ver cómo avanza tu proyecto.</p></div>
         <div className="expectations-carousel">
           <div className="expectations-track" ref={trackRef} role="list" aria-label="Método de trabajo">
@@ -322,7 +322,7 @@ function App() {
     document.documentElement.dataset.theme = darkMode ? 'dark' : 'light'
     window.localStorage.setItem('gorjeos-theme', darkMode ? 'dark' : 'light')
   }, [darkMode])
-  const navItems = [['Inicio', '#inicio'], ['Nosotros', '#estudio'], ['Servicios', '#servicios'], ['Preguntas', '#preguntas'], ['Contacto', '#contacto']]
+  const navItems = [['Inicio', '#inicio'], ['Servicios', '#servicios'], ['Método', '#metodo'], ['Nosotros', '#estudio'], ['Preguntas', '#preguntas'], ['Contacto', '#contacto']]
   const openMenu = () => {
     if (menuOpen) return
     window.history.pushState({ ...window.history.state, gorjeosMobileMenu: true }, '', window.location.href)
@@ -395,10 +395,16 @@ function App() {
         </div>
       </section>
 
+      <section className="projects-section" id="servicios">
+        <SectionTerrainLines /><div className="content-container"><SectionBadge number="1">Servicios</SectionBadge><h2>Lo que podemos construir para <em>tu negocio.</em></h2><div className="additional-services-heading"><span>Soluciones digitales</span><h3>Elegimos la tecnología según el reto, no al revés.</h3><p>Desde una presencia digital que convierte hasta software y seguridad para operar mejor: aterrizamos cada servicio en un resultado que puedas entender y medir.</p></div><div className="service-offers-grid"><AdditionalServiceCard eyebrow="Captación y ventas" title="Websites + embudo digital" interest="Website y embudo digital" description="Diseñamos sitios y recorridos que explican tu valor, atraen al cliente adecuado y convierten el interés en una conversación." image="/services/websites-embudo.webp" imageAlt="Recorrido de bloques naranjas que representa un embudo digital" Icon={BarChart3} /><AdditionalServiceCard eyebrow="Operación a medida" title="Apps y software empresarial" interest="App o software empresarial" description="Construimos software adaptado a tus procesos para reducir fricción, ordenar la operación y ayudar a tu equipo a trabajar mejor." image="/services/apps-software.webp" imageAlt="Módulos digitales conectados alrededor de un núcleo central" Icon={Code2} /><AdditionalServiceCard eyebrow="Protección y confianza" title="Auditoría de ciberseguridad" interest="Auditoría de ciberseguridad" description="Detectamos vulnerabilidades antes de que se conviertan en problemas y te damos un mapa claro para reforzar tu operación." image="/services/ciberseguridad.webp" imageAlt="Escudo tecnológico naranja que protege un núcleo digital" Icon={ShieldCheck} /><AdditionalServiceCard eyebrow="Experiencia que convierte" title="Revisión UX / UI" interest="Revisión UX / UI" description="Analizamos dónde dudan o abandonan tus usuarios y diseñamos interfaces más claras, intuitivas y orientadas a la acción." image="/services/revision-ux-ui.webp" imageAlt="Flujo digital continuo alrededor de un núcleo naranja" Icon={Palette} /><AdditionalServiceCard eyebrow="Identidad y diferenciación" title="Modelos y personajes con IA" interest="Modelos o personajes con IA" description="Creamos activos visuales, personajes y universos de marca con IA para diferenciarte sin perder dirección creativa." image="/services/modelos-ia.webp" imageAlt="Figura humana formada por partículas y circuitos naranjas" Icon={Sparkles} /></div><div className="projects-footer"><span>¿Tienes otro reto digital?</span><a href="#contacto" onClick={() => trackCta('Iniciar proyecto', 'services_footer')}>Iniciar proyecto <ArrowRight size={15} /></a></div></div>
+      </section>
+
+      <ExpectationsCarousel />
+
       <section className="about-section" id="estudio">
         <SectionTerrainLines />
         <div className="content-container">
-          <SectionBadge number="1">Presentamos Gorjeos</SectionBadge>
+          <SectionBadge number="3">Presentamos Gorjeos</SectionBadge>
           <h2>Convertimos problemas complejos en <em>soluciones digitales claras.</em></h2>
           <div className="about-desktop-grid">
             <figure className="about-figure"><img src={largeImage} alt="Sesión de estrategia y tecnología digital" loading="lazy" decoding="async" /><figcaption><strong>Dirección con propósito</strong><span>La IA no es el futuro, es el presente que tu competencia aún no entiende.<br />Nosotros sí.</span></figcaption></figure>
@@ -411,11 +417,6 @@ function App() {
         </div>
       </section>
 
-      <section className="projects-section" id="servicios">
-        <SectionTerrainLines /><div className="content-container"><SectionBadge number="2">Servicios</SectionBadge><h2>Lo que podemos construir para <em>tu negocio.</em></h2><div className="additional-services-heading"><span>Soluciones digitales</span><h3>Elegimos la tecnología según el reto, no al revés.</h3><p>Desde una presencia digital que convierte hasta software y seguridad para operar mejor: aterrizamos cada servicio en un resultado que puedas entender y medir.</p></div><div className="service-offers-grid"><AdditionalServiceCard eyebrow="Captación y ventas" title="Websites + embudo digital" interest="Website y embudo digital" description="Diseñamos sitios y recorridos que explican tu valor, atraen al cliente adecuado y convierten el interés en una conversación." image="/services/websites-embudo.webp" imageAlt="Recorrido de bloques naranjas que representa un embudo digital" Icon={BarChart3} /><AdditionalServiceCard eyebrow="Operación a medida" title="Apps y software empresarial" interest="App o software empresarial" description="Construimos software adaptado a tus procesos para reducir fricción, ordenar la operación y ayudar a tu equipo a trabajar mejor." image="/services/apps-software.webp" imageAlt="Módulos digitales conectados alrededor de un núcleo central" Icon={Code2} /><AdditionalServiceCard eyebrow="Protección y confianza" title="Auditoría de ciberseguridad" interest="Auditoría de ciberseguridad" description="Detectamos vulnerabilidades antes de que se conviertan en problemas y te damos un mapa claro para reforzar tu operación." image="/services/ciberseguridad.webp" imageAlt="Escudo tecnológico naranja que protege un núcleo digital" Icon={ShieldCheck} /><AdditionalServiceCard eyebrow="Experiencia que convierte" title="Revisión UX / UI" interest="Revisión UX / UI" description="Analizamos dónde dudan o abandonan tus usuarios y diseñamos interfaces más claras, intuitivas y orientadas a la acción." image="/services/revision-ux-ui.webp" imageAlt="Flujo digital continuo alrededor de un núcleo naranja" Icon={Palette} /><AdditionalServiceCard eyebrow="Identidad y diferenciación" title="Modelos y personajes con IA" interest="Modelos o personajes con IA" description="Creamos activos visuales, personajes y universos de marca con IA para diferenciarte sin perder dirección creativa." image="/services/modelos-ia.webp" imageAlt="Figura humana formada por partículas y circuitos naranjas" Icon={Sparkles} /></div><div className="projects-footer"><span>¿Tienes otro reto digital?</span><a href="#contacto" onClick={() => trackCta('Iniciar proyecto', 'services_footer')}>Iniciar proyecto <ArrowRight size={15} /></a></div></div>
-      </section>
-
-      <ExpectationsCarousel />
       <FAQSection />
       <ContactSection />
       <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="brand-link"><BrandLogo /></a><span>Gorjeos de Babylon</span></div><div className="footer-message"><p>¡No implementamos IA, diseñamos estructuras digitales que dominan!</p><span>Gorjeos de Babylon: La Cúspide de tu Ambición.</span></div><div className="footer-contact"><a href="#contacto" onClick={() => trackCta('Iniciar proyecto', 'footer')}>Iniciar proyecto</a><a href="/privacy.html" target="_blank" rel="noreferrer" onClick={() => trackCta('Política de privacidad', 'footer')}>Política de privacidad</a><a className="footer-top-link" href="#inicio" onClick={() => trackCta('Volver arriba', 'footer')}>Volver arriba ↑</a><small>© 2026 Gorjeos de Babylon</small></div></footer>
