@@ -85,13 +85,19 @@ function PartnerBadge() {
   )
 }
 
+function ShaderFallback() {
+  return <div className="shader-fallback" aria-hidden="true">
+    <img className="shader-poster" src="/hero-shader-poster.webp" alt="" decoding="async" onError={(event) => { event.currentTarget.style.display = 'none' }} />
+  </div>
+}
+
 const ShaderBackground = lazy(async () => {
   const { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } = await import('shaders/react')
   return {
     default: () => {
       const canUseWebGpu = typeof navigator !== 'undefined' && 'gpu' in navigator
       const [shaderUnavailable, setShaderUnavailable] = useState(!canUseWebGpu)
-      return <div className="shader-layer" aria-hidden="true">{shaderUnavailable ? <div className="shader-fallback" /> : <Shader className="shader-canvas" onReady={() => setShaderUnavailable(false)} onUnavailable={() => setShaderUnavailable(true)}><Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} /><ChromaFlow baseColor="#ffffff" downColor="#ff5f03" leftColor="#ff5f03" rightColor="#ff5f03" upColor="#ff5f03" momentum={13} radius={3.5} /><FlutedGlass aberration={0.61} angle={31} frequency={8} highlight={0.12} highlightSoftness={0} lightAngle={-90} refraction={4} shape="rounded" softness={1} speed={0.15} /><FilmGrain strength={0.05} /></Shader>}<div className="terrain-lines"><svg viewBox="0 0 1600 900" preserveAspectRatio="none"><path d="M0 690C160 610 220 760 390 660S690 520 830 660s280 120 410 10 220-60 360-150" /><path d="M0 760c170-70 250 60 420-45s300-170 450-30 250 150 390 40 210-120 340-170" /><path d="M0 830c150-60 290 20 430-45s260-95 400-15 270 120 420 40 220-95 350-130" /><path d="M0 890c190-60 300-5 470-35s290-48 420-5 280 70 420 20 180-72 290-90" /></svg></div></div>
+      return <div className="shader-layer" aria-hidden="true">{shaderUnavailable ? <ShaderFallback /> : <Shader className="shader-canvas" onReady={() => setShaderUnavailable(false)} onUnavailable={() => setShaderUnavailable(true)}><Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} /><ChromaFlow baseColor="#ffffff" downColor="#ff5f03" leftColor="#ff5f03" rightColor="#ff5f03" upColor="#ff5f03" momentum={13} radius={3.5} /><FlutedGlass aberration={0.61} angle={31} frequency={8} highlight={0.12} highlightSoftness={0} lightAngle={-90} refraction={4} shape="rounded" softness={1} speed={0.15} /><FilmGrain strength={0.05} /></Shader>}<div className="terrain-lines"><svg viewBox="0 0 1600 900" preserveAspectRatio="none"><path d="M0 690C160 610 220 760 390 660S690 520 830 660s280 120 410 10 220-60 360-150" /><path d="M0 760c170-70 250 60 420-45s300-170 450-30 250 150 390 40 210-120 340-170" /><path d="M0 830c150-60 290 20 430-45s260-95 400-15 270 120 420 40 220-95 350-130" /><path d="M0 890c190-60 300-5 470-35s290-48 420-5 280 70 420 20 180-72 290-90" /></svg></div></div>
     },
   }
 })
@@ -362,7 +368,7 @@ function App() {
     <>
     <main className={`axion-page ${darkMode ? 'theme-dark' : ''}`}>
       <section className="hero-section" id="inicio">
-        <Suspense fallback={<div className="shader-fallback" aria-hidden="true" />}><ShaderBackground /></Suspense>
+        <Suspense fallback={<ShaderFallback />}><ShaderBackground /></Suspense>
         <div className="hero-overlay" aria-hidden="true" />
         <div className="hero-container">
           <header className="pill-nav">
