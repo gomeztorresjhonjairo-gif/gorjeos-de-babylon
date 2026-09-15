@@ -15,11 +15,12 @@ Los elementos más útiles de su página son:
 
 ### 1. Confianza sin testimonios inventados
 
-Todavía no contamos con testimonios verificables, nombres de clientes ni resultados publicados que debamos mostrar como prueba social. Por eso se incorporó un carrusel de “Qué puedes esperar” con tres principios reales del proceso:
+Todavía no contamos con testimonios verificables, nombres de clientes ni resultados publicados que debamos mostrar como prueba social. Por eso el módulo se orienta a explicar el método real de trabajo en cuatro pasos:
 
 1. Entender el reto antes de construir.
-2. Explicar el criterio detrás de cada decisión.
-3. Trabajar con entregables visibles y validables.
+2. Diseñar una ruta viable.
+3. Construir con criterio y entregables visibles.
+4. Optimizar con aprendizaje del uso real.
 
 Cuando existan casos autorizados, este módulo podrá evolucionar a casos reales, resultados medibles o testimonios.
 
@@ -41,9 +42,11 @@ Para usar únicamente el símbolo, la mejor opción de la cuadrícula recibida e
 
 La opción circular de la fila superior central funcionaría como avatar o sello social, pero añade un contenedor que compite con el sistema de pastillas de la interfaz. No se reemplazó todavía el asset del sitio porque la imagen recibida es una composición con fondo y texto; conviene preparar una versión vectorial transparente del símbolo seleccionado antes de ponerla en producción.
 
-## Alcance de esta iteración
+## Alcance de la iteración anterior
 
-Esta rama contiene únicamente la propuesta de estructura, confianza, FAQ y el ajuste de Telegram. `main` y `correcciones` no se modifican con estos cambios.
+La iteración anterior incorporó la propuesta de estructura, confianza, FAQ, animaciones moderadas y el ajuste de Telegram. `main` y `correcciones` no se modificaron con esos cambios.
+
+La iteración actual se documenta en `docs/claridad-home-2026-09-15.md` y trabaja sobre la claridad del home en la rama `codex/claridad-home`.
 
 ## Criterio de animación aplicado
 
