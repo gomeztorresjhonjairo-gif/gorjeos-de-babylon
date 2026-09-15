@@ -20,8 +20,8 @@ Trabajamos en cuatro etapas: entender el problema, diseñar una ruta concreta, c
 
 ## Páginas
 
-- [Inicio](https://gorjeos-de-babylon.vercel.app/): propuesta de valor, servicios, método y contacto.
-- [Política de tratamiento de datos](https://gorjeos-de-babylon.vercel.app/privacy.html): información sobre el responsable y el uso de los datos personales.
+- [Inicio](https://www.gorjeosbabylon.com/): propuesta de valor, servicios, método y contacto.
+- [Política de tratamiento de datos](https://www.gorjeosbabylon.com/privacy.html): información sobre el responsable y el uso de los datos personales.
 
 ## Contacto
 
