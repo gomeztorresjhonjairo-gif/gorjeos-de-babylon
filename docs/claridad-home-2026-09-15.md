@@ -21,6 +21,11 @@ También se identificó una oportunidad de pedagogía comercial: la página debe
 - Las cinco tarjetas de servicios se reescribieron para explicar su resultado y utilidad, conservando la identidad visual existente.
 - Se mantuvo la navegación y el tono de marca, sin convertir la página en una copia literal del esquema de referencia.
 
+## Ajustes posteriores
+
+- El símbolo de marca se reemplazó por el logo recibido, preparado con fondo transparente para funcionar sobre superficies claras y oscuras.
+- El hero conserva un fallback con gradiente animado debajo del shader WebGPU. Si un navegador de escritorio no puede inicializar WebGPU, el banner mantiene una microanimación visible en lugar de quedar estático.
+
 ## Pendientes recomendados
 
 - Añadir ejemplos concretos o casos de uso en el bloque de soluciones.

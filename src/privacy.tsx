@@ -8,7 +8,7 @@ function PrivacyPage() {
     <main className="privacy-page-shell">
       <header className="privacy-page-header">
         <a className="privacy-page-brand" href="/" aria-label="Volver a Gorjeos de Babylon">
-          <img src="/favicon.svg" alt="" />
+          <img src="/gorjeos-mark.png" alt="" />
           <span>Gorjeos de Babylon</span>
         </a>
         <a className="privacy-page-back" href="/">

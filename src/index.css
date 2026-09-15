@@ -536,8 +536,13 @@ img, video { display: block; max-width: 100%; }
 .terrain-lines path { fill: none; stroke: #747875; stroke-width: 1.4; vector-effect: non-scaling-stroke; }
 .theme-dark .terrain-lines { opacity: .5; }
 .theme-dark .terrain-lines path { stroke: #f5f7fb; stroke-width: 1.1; }
-.shader-fallback { position: absolute; inset: 0; background: #f2f1ed; }
-.theme-dark .shader-fallback { background: #121a28; }
+.shader-fallback { position: absolute; inset: 0; background: linear-gradient(125deg, #f8f7f2 0%, #f1ede5 36%, #f7d4c0 54%, #f2f1ed 72%, #fffdf8 100%); background-size: 240% 240%; animation: shader-fallback-drift 18s ease-in-out infinite alternate; }
+.theme-dark .shader-fallback { background: linear-gradient(125deg, #121a28 0%, #1b2636 38%, #3b2930 56%, #16243a 78%, #121a28 100%); background-size: 240% 240%; }
+
+@keyframes shader-fallback-drift {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
 
 /* Legibilidad y embudo de servicios */
 .about-copy p, .about-mobile-grid > p { max-width: 430px; font-size: clamp(1.1rem, 1.55vw, 1.35rem); line-height: 1.45; }
