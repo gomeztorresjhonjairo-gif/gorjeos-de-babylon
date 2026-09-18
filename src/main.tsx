@@ -207,7 +207,7 @@ function ProjectCard({ video, title, description, eyebrow, outcome, dark = false
 
 function AdditionalServiceCard({ eyebrow, title, interest, description, image, imageAlt, Icon }: { eyebrow: string; title: string; interest: string; description: string; image: string; imageAlt: string; Icon: typeof ShieldCheck }) {
   const { ref, isVisible } = useRevealOnScroll<HTMLElement>()
-  return <article ref={ref} className={`additional-service-card scroll-reveal${isVisible ? ' is-revealed' : ''}`}><div className="service-image"><img src={image} alt={imageAlt} loading="lazy" decoding="async" /><span className="service-image-icon"><Icon size={22} /></span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><CardCopy text={description} /><a href="#contacto" onClick={(event) => navigateToContact(event, interest, 'service_card')}>Iniciar proyecto <ArrowRight size={14} /></a></div></article>
+  return <article ref={ref} className={`additional-service-card scroll-reveal${isVisible ? ' is-revealed' : ''}`}><div className="service-image"><img src={image} alt={imageAlt} loading="lazy" decoding="async" width="800" height="597" /><span className="service-image-icon"><Icon size={22} /></span></div><div className="additional-service-copy"><span>{eyebrow}</span><h3>{title}</h3><CardCopy text={description} /><a href="#contacto" onClick={(event) => navigateToContact(event, interest, 'service_card')}>Iniciar proyecto <ArrowRight size={14} /></a></div></article>
 }
 
 const expectations = [

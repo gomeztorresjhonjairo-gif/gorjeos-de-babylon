@@ -75,7 +75,7 @@ function ServiceCard({ service }: { service: Service }) {
     window.dispatchEvent(new CustomEvent('gorjeos:service-selected', { detail: { interest: service.interest } }))
     track('service_selected', { service: service.interest, location: 'services', language: 'en' })
   }
-  return <article className="additional-service-card"><div className="service-image"><img src={service.image} alt={service.alt} loading="lazy" decoding="async" /><div className="service-icon"><Icon size={19} /></div></div><div className="additional-service-copy"><span>{service.eyebrow}</span><h3>{service.title}</h3><p>{service.description}</p><a href="#contact" onClick={selectService}>Start a project <ArrowRight size={15} /></a></div></article>
+  return <article className="additional-service-card"><div className="service-image"><img src={service.image} alt={service.alt} loading="lazy" decoding="async" width="800" height="597" /><div className="service-icon"><Icon size={19} /></div></div><div className="additional-service-copy"><span>{service.eyebrow}</span><h3>{service.title}</h3><p>{service.description}</p><a href="#contact" onClick={selectService}>Start a project <ArrowRight size={15} /></a></div></article>
 }
 
 const faqItems = [
