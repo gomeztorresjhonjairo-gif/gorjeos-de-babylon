@@ -44,6 +44,10 @@ La propuesta parte de la evaluación previa de la home, que estimaba: claridad 7
    - Se añadió un enlace visible al recibir foco para saltar directamente al contenido principal.
    - Se reforzaron los estados `focus-visible` de enlaces, botones, campos y preguntas frecuentes.
 
+8. **Pintado diferido de secciones inferiores**
+   - Las secciones que no pertenecen al primer viewport usan `content-visibility: auto` con un tamaño intrínseco reservado.
+   - Esto reduce trabajo de pintura inicial, especialmente en teléfonos, sin eliminar contenido ni cambiar el recorrido de navegación.
+
 ## Evaluación heurística esperada
 
 | Área | Antes | En esta rama | Observación |
@@ -54,9 +58,9 @@ La propuesta parte de la evaluación previa de la home, que estimaba: claridad 7
 | Confianza | 6/10 | 7,5/10 | Se comunica el proceso y se hace visible el contexto elegido; aún faltan pruebas externas verificables. |
 | Conversión | 7,5/10 | 9/10 | El formulario ya tiene recepción, estados, servicio persistido y ahora confirma visualmente el servicio antes del envío. |
 | Experiencia móvil | 8/10 | 9/10 | Mejor navegación, foco accesible y bloques compactos sin aumentar la carga visual. |
-| Rendimiento | 8/10 | 8/10 | Esta rama no introduce coste significativo; debe confirmarse con una medición del Preview. |
+| Rendimiento | 8/10 | 8,5/10 | Se reduce el pintado inicial de contenido fuera de pantalla; debe confirmarse con una medición del Preview en dispositivos reales. |
 
-**Resultado global orientativo: 8,7/10.** Es una valoración heurística, no una métrica de usuarios reales ni una auditoría de Lighthouse.
+**Resultado global orientativo: 8,8/10.** Es una valoración heurística, no una métrica de usuarios reales ni una auditoría de Lighthouse.
 
 ## No aplicado todavía
 

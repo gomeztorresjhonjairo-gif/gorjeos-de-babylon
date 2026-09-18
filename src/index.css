@@ -1395,6 +1395,17 @@ img, video { display: block; max-width: 100%; }
   color: #ff9a68;
 }
 
+/* Defer paint work below the first viewport while preserving scroll geometry. */
+.projects-section,
+.expectations-section,
+.about-section,
+.faq-section,
+.contact-section,
+.axion-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 720px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal,
   .scroll-reveal.is-revealed,
