@@ -86,11 +86,26 @@ function PartnerBadge() {
 
 function ShaderFallback() {
   return <div className="shader-fallback" aria-hidden="true">
-    <img className="shader-poster" src="/hero-shader-poster.webp" alt="" decoding="async" onError={(event) => { event.currentTarget.style.display = 'none' }} />
+    <img className="shader-poster" src="/hero-shader-poster.webp" alt="" decoding="async" fetchPriority="high" onError={(event) => { event.currentTarget.style.display = 'none' }} />
   </div>
 }
 
+function shouldSkipShader() {
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches || Boolean(connection?.saveData)
+}
+
+function waitForInitialRender() {
+  return new Promise<void>((resolve) => {
+    const start = () => window.setTimeout(resolve, window.innerWidth < 768 ? 1200 : 650)
+    if (document.readyState === 'complete') start()
+    else window.addEventListener('load', start, { once: true })
+  })
+}
+
 const ShaderBackground = lazy(async () => {
+  if (shouldSkipShader()) return { default: ShaderFallback }
+  await waitForInitialRender()
   const { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } = await import('shaders/react')
   return {
     default: () => {

@@ -48,10 +48,25 @@ function WhatsAppIcon() { return <svg viewBox="0 0 32 32" aria-hidden="true"><pa
 function TelegramIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.8 3.2 2.7 10.6c-1.3.5-1.3 1.2-.2 1.5l4.9 1.5 1.9 5.8c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.5.3 1.7-.8l3.2-15.1c.3-1.4-.5-2-1.8-1.5ZM8.2 13.3l10.8-6.8c.5-.3.9-.1.5.2l-8.8 7.9-.3 3.3-1.7-4.6-3.5-1.1c-.8-.2-.8-.5.2-.9l2.8-1.1Z" /></svg> }
 
 function ShaderFallback() {
-  return <div className="shader-fallback" aria-hidden="true"><img className="shader-poster" src="/hero-shader-poster.webp" alt="" decoding="async" /></div>
+  return <div className="shader-fallback" aria-hidden="true"><img className="shader-poster" src="/hero-shader-poster.webp" alt="" decoding="async" fetchPriority="high" /></div>
+}
+
+function shouldSkipShader() {
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches || Boolean(connection?.saveData)
+}
+
+function waitForInitialRender() {
+  return new Promise<void>((resolve) => {
+    const start = () => window.setTimeout(resolve, window.innerWidth < 768 ? 1200 : 650)
+    if (document.readyState === 'complete') start()
+    else window.addEventListener('load', start, { once: true })
+  })
 }
 
 const ShaderBackground = lazy(async () => {
+  if (shouldSkipShader()) return { default: ShaderFallback }
+  await waitForInitialRender()
   const { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } = await import('shaders/react')
   return { default: () => <div className="shader-layer" aria-hidden="true"><ShaderFallback /><Shader className="shader-canvas" onUnavailable={() => undefined}><Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} /><ChromaFlow baseColor="#ffffff" downColor="#ff5f03" leftColor="#ff5f03" rightColor="#ff5f03" upColor="#ff5f03" momentum={13} radius={3.5} /><FlutedGlass aberration={0.61} angle={31} frequency={8} highlight={0.12} highlightSoftness={0} lightAngle={-90} refraction={4} shape="rounded" softness={1} speed={0.15} /><FilmGrain strength={0.05} /></Shader><div className="terrain-lines"><svg viewBox="0 0 1600 900" preserveAspectRatio="none"><path d="M0 690C160 610 220 760 390 660S690 520 830 660s280 120 410 10 220-60 360-150" /><path d="M0 760c170-70 250 60 420-45s300-170 450-30 250 150 390 40 210-120 340-170" /></svg></div></div> }
 })
