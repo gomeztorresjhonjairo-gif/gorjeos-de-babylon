@@ -118,7 +118,7 @@ function ThemeToggle({ darkMode, onToggle }: { darkMode: boolean; onToggle: () =
 }
 
 function BrandLogo({ compact = false }: { compact?: boolean }) {
-  return <img className={compact ? 'brand-logo brand-logo-compact' : 'brand-logo'} src="/gorjeos-mark.png" alt="Gorjeos de Babylon" />
+  return <img className={compact ? 'brand-logo brand-logo-compact' : 'brand-logo'} src="/gorjeos-mark.webp" alt="Gorjeos de Babylon" width="256" height="266" decoding="async" />
 }
 
 function SectionBadge({ number, children }: { number: string; children: string }) {
