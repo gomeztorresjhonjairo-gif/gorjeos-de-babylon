@@ -1211,6 +1211,108 @@ img, video { display: block; max-width: 100%; }
   }
 }
 
+/* UX/conversion pass: make the promise, process and next step scannable. */
+.hero-content .hero-audience {
+  max-width: 690px;
+  margin: 12px 0 0;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.trust-signals {
+  border-block: 1px solid rgba(242, 101, 34, .18);
+  background: #fffaf7;
+}
+
+.trust-signals .content-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  padding-block: 22px;
+}
+
+.trust-signal {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding-left: 16px;
+  border-left: 2px solid rgba(242, 101, 34, .65);
+}
+
+.trust-signal strong {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -.01em;
+}
+
+.trust-signal span {
+  color: #5b6472;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.contact-reassurance {
+  display: grid;
+  gap: 8px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #5b6472;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.contact-reassurance li::before {
+  margin-right: 8px;
+  color: #f26522;
+  content: '✓';
+  font-weight: 700;
+}
+
+.theme-dark .hero-content .hero-audience {
+  color: #cbd5e1;
+}
+
+.theme-dark .trust-signals {
+  border-color: #344255;
+  background: #111c2c;
+}
+
+.theme-dark .trust-signal strong {
+  color: #f8fafc;
+}
+
+.theme-dark .trust-signal span,
+.theme-dark .contact-reassurance {
+  color: #aab4c5;
+}
+
+@media (max-width: 767px) {
+  .hero-content .hero-audience {
+    max-width: 34rem;
+    font-size: 14px;
+  }
+
+  .trust-signals .content-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-block: 8px;
+  }
+
+  .trust-signal {
+    padding: 14px 0;
+    border-top: 1px solid rgba(242, 101, 34, .18);
+    border-left: 0;
+  }
+
+  .trust-signal:first-child {
+    border-top: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal,
   .scroll-reveal.is-revealed,

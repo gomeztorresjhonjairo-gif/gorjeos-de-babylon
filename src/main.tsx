@@ -252,6 +252,10 @@ function ExpectationsCarousel() {
   )
 }
 
+function TrustSignals() {
+  return <section className="trust-signals" aria-label="Qué puedes esperar de Gorjeos de Babylon"><div className="content-container"><div className="trust-signal"><strong>Dirección antes que tecnología</strong><span>Priorizamos el problema que mueve tu negocio.</span></div><div className="trust-signal"><strong>Proceso visible</strong><span>Entender → diseñar → construir → optimizar.</span></div><div className="trust-signal"><strong>Contacto sin fricción</strong><span>Formulario, WhatsApp o Telegram: tú eliges.</span></div></div></section>
+}
+
 const faqItems = [
   ['¿Cómo empieza un proyecto?', 'Comenzamos con una conversación de alcance para entender tu objetivo, tus usuarios, los sistemas actuales y las restricciones. Después proponemos una ruta por fases y un primer paso concreto.'],
   ['¿Trabajan con empresas de Colombia y España?', 'Sí. Gorjeos de Babylon trabaja entre Colombia y España y puede acompañar proyectos de forma remota, con una comunicación adaptada a cada equipo.'],
@@ -339,7 +343,7 @@ function ContactSection() {
   return (
     <section className="contact-section" id="contacto">
       <div className="content-container contact-container">
-        <div className="contact-intro"><SectionBadge number="5">Inicia la construcción</SectionBadge><h2>Tu proyecto merece una respuesta a la altura. <br className="desktop-break" />Empecemos a construir algo extraordinario.</h2><p>Comparte con nosotros tu objetivo y tu información de contacto. Te acompañamos desde el planteamiento de tu idea inicial hasta la materialización de tu proyecto.</p><div className="contact-direct"><span>O contáctanos directamente →</span><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" onClick={() => trackContact('whatsapp', 'contact_direct')}>WhatsApp · +34 695 018 080</a></div></div>
+        <div className="contact-intro"><SectionBadge number="5">Inicia la construcción</SectionBadge><h2>Tu proyecto merece una respuesta a la altura. <br className="desktop-break" />Empecemos a construir algo extraordinario.</h2><p>Comparte con nosotros tu objetivo y tu información de contacto. Te acompañamos desde el planteamiento de tu idea inicial hasta la materialización de tu proyecto.</p><div className="contact-direct"><span>O contáctanos directamente →</span><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" onClick={() => trackContact('whatsapp', 'contact_direct')}>WhatsApp · +34 695 018 080</a></div><ul className="contact-reassurance"><li>No necesitas llegar con la solución.</li><li>Conservamos el servicio que elegiste.</li><li>Recibes confirmación cuando enviamos tus datos.</li></ul></div>
         <div className="contact-form-wrap">{formContent}</div>
       </div>
     </section>
@@ -420,13 +424,15 @@ function App() {
           <div className="hero-content">
             <p className="hero-label">Gorjeos de Babylon · Tecnología con dirección</p>
             <h1>Creamos, posicionamos y hacemos evolucionar tu presencia digital.</h1>
-            <p className="hero-support">Desarrollo de software, experiencias web, SEO, analítica, ciberseguridad e inteligencia artificial para convertir retos de negocio en soluciones que funcionan.</p>
+            <p className="hero-support">Desarrollo de software, experiencias web, SEO, analítica, ciberseguridad e inteligencia artificial para convertir retos de negocio en soluciones que funcionan.</p><p className="hero-audience">Para empresas y marcas que necesitan convertir un reto digital en una decisión clara.</p>
             <p className="hero-tagline">No se trata solo de estar en internet. Se trata de construir algo que funcione.</p>
             <div className="hero-cta-row"><RollingButton dark={false}>Iniciar proyecto</RollingButton><PartnerBadge /></div>
           </div>
           <span className="hero-corner-note">COL / ESP · 10 AÑOS DE EXPERIENCIA</span>
         </div>
       </section>
+
+      <TrustSignals />
 
       <section className="projects-section" id="servicios">
         <SectionTerrainLines /><div className="content-container"><SectionBadge number="1">Servicios</SectionBadge><h2>Lo que podemos construir para <em>tu negocio.</em></h2><div className="additional-services-heading"><span>Soluciones digitales</span><h3>Elegimos la tecnología según el reto, no al revés.</h3><p>Desde una presencia digital que convierte hasta software y seguridad para operar mejor: aterrizamos cada servicio en un resultado que puedas entender y medir.</p></div><div className="service-offers-grid"><AdditionalServiceCard eyebrow="Captación y ventas" title="Websites + embudo digital" interest="Website y embudo digital" description="Diseñamos sitios y recorridos que explican tu valor, atraen al cliente adecuado y convierten el interés en una conversación." image="/services/websites-embudo.webp" imageAlt="Recorrido de bloques naranjas que representa un embudo digital" Icon={BarChart3} /><AdditionalServiceCard eyebrow="Operación a medida" title="Apps y software empresarial" interest="App o software empresarial" description="Construimos software adaptado a tus procesos para reducir fricción, ordenar la operación y ayudar a tu equipo a trabajar mejor." image="/services/apps-software.webp" imageAlt="Módulos digitales conectados alrededor de un núcleo central" Icon={Code2} /><AdditionalServiceCard eyebrow="Protección y confianza" title="Auditoría de ciberseguridad" interest="Auditoría de ciberseguridad" description="Detectamos vulnerabilidades antes de que se conviertan en problemas y te damos un mapa claro para reforzar tu operación." image="/services/ciberseguridad.webp" imageAlt="Escudo tecnológico naranja que protege un núcleo digital" Icon={ShieldCheck} /><AdditionalServiceCard eyebrow="Experiencia que convierte" title="Revisión UX / UI" interest="Revisión UX / UI" description="Analizamos dónde dudan o abandonan tus usuarios y diseñamos interfaces más claras, intuitivas y orientadas a la acción." image="/services/revision-ux-ui.webp" imageAlt="Flujo digital continuo alrededor de un núcleo naranja" Icon={Palette} /><AdditionalServiceCard eyebrow="Identidad y diferenciación" title="Modelos y personajes con IA" interest="Modelos o personajes con IA" description="Creamos activos visuales, personajes y universos de marca con IA para diferenciarte sin perder dirección creativa." image="/services/modelos-ia.webp" imageAlt="Figura humana formada por partículas y circuitos naranjas" Icon={Sparkles} /></div><div className="projects-footer"><span>¿Tienes otro reto digital?</span><a href="#contacto" onClick={() => trackCta('Iniciar proyecto', 'services_footer')}>Iniciar proyecto <ArrowRight size={15} /></a></div></div>
