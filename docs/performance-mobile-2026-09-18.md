@@ -92,6 +92,18 @@ Se probó una espera móvil de 3,2 s antes de importar el shader, manteniendo el
 
 El retraso adicional no redujo el coste que PageSpeed observa en la cadena de red: el chunk `hero-shader` siguió apareciendo con aproximadamente 698 KiB. Se revirtió a 1,2 s en móvil para no empeorar la percepción de carga. La conclusión es que un retraso temporal, por sí solo, no resuelve el problema; una mejora mayor requeriría reducir o cambiar la entrega del shader en móvil, algo que sí alteraría la estrategia de carga de la animación y queda pendiente de aprobación específica.
 
+## Verificación del árbol de red en `b859176`
+
+La preview `https://gorjeos-de-babylon-ayrhm5up3-gorjeos.vercel.app/` se auditó nuevamente con PageSpeed Insights el 18 de septiembre de 2026:
+
+- Rendimiento móvil: 69, con FCP de 3,2 s, LCP de 6,3 s, TBT de 80 ms, CLS de 0 y Speed Index de 4,4 s.
+- Rendimiento de escritorio: 95, con FCP de 0,7 s, LCP de 1,1 s, TBT de 70 ms, CLS de 0 y Speed Index de 1,6 s.
+- Latencia máxima de la ruta crítica móvil: 1133 ms, frente a 1335 ms en la medición anterior.
+- El árbol ya no reporta orígenes preconectados innecesarios; se eliminaron los hints de `db.onlinewebfonts.com`.
+- El shader continúa fuera del paquete inicial y aparece únicamente cuando se activa la carga diferida. Su tamaño sigue siendo aproximadamente 698 KiB, por lo que reducirlo más requeriría modificar la tecnología o la composición de la animación.
+
+La mejora conserva el aspecto visual y mantiene la navegación agéntica en 3/3, accesibilidad en 96, prácticas recomendadas en 100 y SEO en 100.
+
 ## Comparación de empaquetado y escritorio
 
 También se compararon dos variantes sin modificar el aspecto de la animación:
