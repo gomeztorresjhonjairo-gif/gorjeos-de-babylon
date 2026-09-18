@@ -44,6 +44,18 @@ PageSpeed identificó que el carrusel del método declaraba `role="listitem"` di
 
 También se ajustó la compresión de `apps-software.webp` tras la segunda medición. La imagen conserva sus dimensiones y composición visual, pero reduce su peso para atender el ahorro restante señalado por PageSpeed.
 
+## Validación posterior
+
+En la nueva preview `https://gorjeos-de-babylon-eyhywlqut-gorjeos.vercel.app/`:
+
+- Navegación agéntica: 3/3; el error del árbol de accesibilidad quedó resuelto.
+- Rendimiento móvil: 62 en esta ejecución, con FCP de 5,9 s, LCP de 6,4 s, TBT de 30 ms, CLS de 0 y Speed Index de 5,9 s.
+- Rendimiento de escritorio: 92, con FCP de 0,8 s, LCP de 1,2 s, TBT de 150 ms, CLS de 0 y Speed Index de 1,5 s.
+- SEO: 100.
+- Prácticas recomendadas: 100.
+
+Las puntuaciones móviles fluctúan entre ejecuciones de PageSpeed por las condiciones de red y CPU emuladas. La señal más estable de esta iteración es que el JavaScript ya no genera tareas largas relevantes y la auditoría agéntica está completamente aprobada.
+
 ## Verificaciones
 
 - `npm run build`: correcto.
