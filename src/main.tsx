@@ -344,7 +344,7 @@ function ContactSection() {
     <section className="contact-section" id="contacto">
       <div className="content-container contact-container">
         <div className="contact-intro"><SectionBadge number="5">Inicia la construcción</SectionBadge><h2>Tu proyecto merece una respuesta a la altura. <br className="desktop-break" />Empecemos a construir algo extraordinario.</h2><p>Comparte con nosotros tu objetivo y tu información de contacto. Te acompañamos desde el planteamiento de tu idea inicial hasta la materialización de tu proyecto.</p><div className="contact-direct"><span>O contáctanos directamente →</span><a href="mailto:gorjeosbabylon@gmail.com">gorjeosbabylon@gmail.com</a><a href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" onClick={() => trackContact('whatsapp', 'contact_direct')}>WhatsApp · +34 695 018 080</a></div><ul className="contact-reassurance"><li>No necesitas llegar con la solución.</li><li>Conservamos el servicio que elegiste.</li><li>Recibes confirmación cuando enviamos tus datos.</li></ul></div>
-        <div className="contact-form-wrap">{formContent}</div>
+        <>{selectedInterest && status !== 'success' && <div className="selected-service-note" role="status"><span>Servicio seleccionado</span><strong>{selectedInterest}</strong><button type="button" onClick={() => { setSelectedInterest(''); const url = new URL(window.location.href); url.searchParams.delete('servicio'); window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`) }}>Cambiar</button></div>}<div className="contact-form-wrap">{formContent}</div></>
       </div>
     </section>
   )
@@ -403,6 +403,7 @@ function App() {
 
   return (
     <>
+    <a className="skip-link" href="#servicios">Saltar al contenido principal</a>
     <main className={`axion-page ${darkMode ? 'theme-dark' : ''}`}>
       <section className="hero-section" id="inicio">
         <Suspense fallback={<ShaderFallback />}><ShaderBackground /></Suspense>

@@ -1313,6 +1313,88 @@ img, video { display: block; max-width: 100%; }
   }
 }
 
+/* Final usability pass: keyboard access and a visible handoff from service cards to the form. */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 2000;
+  transform: translateY(-180%);
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: #111827;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform .2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid rgba(242, 101, 34, .65);
+  outline-offset: 3px;
+}
+
+.selected-service-note {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 14px;
+  margin-bottom: 22px;
+  border-left: 3px solid #f26522;
+  padding: 12px 14px;
+  background: #fff7f2;
+}
+
+.selected-service-note span {
+  grid-column: 1 / -1;
+  color: #7c8490;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.selected-service-note strong {
+  color: #111827;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.selected-service-note button {
+  align-self: center;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  padding: 0;
+  background: transparent;
+  color: #c84f12;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.theme-dark .skip-link {
+  background: #f8fafc;
+  color: #111827;
+}
+
+.theme-dark .selected-service-note {
+  background: #1c293b;
+}
+
+.theme-dark .selected-service-note strong {
+  color: #f8fafc;
+}
+
+.theme-dark .selected-service-note span {
+  color: #aab4c5;
+}
+
+.theme-dark .selected-service-note button {
+  color: #ff9a68;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal,
   .scroll-reveal.is-revealed,
