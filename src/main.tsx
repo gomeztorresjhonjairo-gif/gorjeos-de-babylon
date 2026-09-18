@@ -125,6 +125,25 @@ function SectionBadge({ number, children }: { number: string; children: string }
   return <div className="section-badge"><span>{number}</span><strong>{children}</strong></div>
 }
 
+function LanguagePrompt() {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    if (window.location.pathname !== '/') return
+    const choice = window.localStorage.getItem('gorjeos-language-choice')
+    const browserLanguage = navigator.language.toLowerCase()
+    if (!choice && browserLanguage.startsWith('en')) setVisible(true)
+  }, [])
+
+  const choose = (language: 'en' | 'es') => {
+    window.localStorage.setItem('gorjeos-language-choice', language)
+    setVisible(false)
+  }
+
+  if (!visible) return null
+  return <aside className="language-prompt" aria-label="Language preference"><p>This page is available in English. Would you like to view it?</p><div className="language-prompt-actions"><a href="/en/" onClick={() => choose('en')}>View in English</a><button type="button" onClick={() => choose('es')}>Seguir en español</button></div></aside>
+}
+
 function MissionVisionCard({ label, backCopy, Icon, children }: { label: string; backCopy: string; Icon: typeof Target; children: string }) {
   const cardRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
@@ -372,13 +391,13 @@ function App() {
         <div className="hero-container">
           <header className="pill-nav">
             <div className="nav-left"><a href="#inicio" className="brand-link" aria-label="Gorjeos de Babylon"><BrandLogo compact /></a><nav className="nav-links">{navItems.map(([label, href]) => <a key={label} href={href}>{label}</a>)}</nav></div>
-            <div className="nav-right"><span className="london-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><RollingButton>Iniciar proyecto</RollingButton></div>
+            <div className="nav-right"><span className="london-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><a className="language-switcher" href="/en/" onClick={() => window.localStorage.setItem('gorjeos-language-choice', 'en')}>EN</a><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><RollingButton>Iniciar proyecto</RollingButton></div>
             <button className="mobile-menu-button" type="button" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={menuOpen ? closeMenu : openMenu}>{menuOpen ? <X size={17} /> : <Menu size={17} />}<span>{menuOpen ? 'Cerrar' : 'Menú'}</span></button>
           </header>
 
           {menuOpen && <button className="mobile-menu-backdrop" type="button" aria-label="Cerrar menú" onClick={closeMenu} tabIndex={-1} />}
           <div id="mobile-navigation" className={`mobile-sheet ${menuOpen ? 'mobile-sheet-open' : ''}`} aria-hidden={!menuOpen}>
-            <div className="mobile-sheet-tools"><span className="mobile-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><div className="mobile-sheet-actions"><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><button className="mobile-sheet-close" type="button" onClick={closeMenu} aria-label="Cerrar menú"><X size={17} /><span>Cerrar</span></button></div></div>
+            <div className="mobile-sheet-tools"><span className="mobile-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><div className="mobile-sheet-actions"><a className="language-switcher" href="/en/" onClick={() => window.localStorage.setItem('gorjeos-language-choice', 'en')}>EN</a><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><button className="mobile-sheet-close" type="button" onClick={closeMenu} aria-label="Cerrar menú"><X size={17} /><span>Cerrar</span></button></div></div>
             <nav>{navItems.map(([label, href]) => <a key={label} href={href} onClick={(event) => navigateFromMenu(event, href)} tabIndex={menuOpen ? 0 : -1}>{label}<ArrowRight size={20} /></a>)}</nav>
             <RollingButton dark={false} onClick={(event) => navigateFromMenu(event, '#contacto')}>Iniciar proyecto</RollingButton>
           </div>
@@ -421,6 +440,7 @@ function App() {
       <footer className="axion-footer" id="pie"><div className="footer-brand"><a href="#inicio" className="brand-link"><BrandLogo /></a><span>Gorjeos de Babylon</span></div><div className="footer-message"><p>¡No implementamos IA, diseñamos estructuras digitales que dominan!</p><span>Gorjeos de Babylon: La Cúspide de tu Ambición.</span></div><div className="footer-contact"><a href="#contacto" onClick={() => trackCta('Iniciar proyecto', 'footer')}>Iniciar proyecto</a><a href="/privacy.html" target="_blank" rel="noreferrer" onClick={() => trackCta('Política de privacidad', 'footer')}>Política de privacidad</a><a className="footer-top-link" href="#inicio" onClick={() => trackCta('Volver arriba', 'footer')}>Volver arriba ↑</a><small>© 2026 Gorjeos de Babylon</small></div></footer>
       <div className="floating-contact" aria-label="Contacto directo"><a className="floating-whatsapp" href="https://wa.me/34695018080?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Gorjeos%20de%20Babylon." target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp" onClick={() => trackContact('whatsapp', 'floating')}><WhatsAppIcon /></a><a className="floating-telegram" href="https://t.me/GoBbylon" target="_blank" rel="noreferrer" aria-label="Escribir por Telegram" onClick={() => trackContact('telegram', 'floating')}><TelegramIcon /></a></div>
     </main>
+    <LanguagePrompt />
     <Analytics />
     <SpeedInsights />
     </>

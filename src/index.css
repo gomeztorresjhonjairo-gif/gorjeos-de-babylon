@@ -432,6 +432,22 @@ img, video { display: block; max-width: 100%; }
 .project-overlay strong { font-size: clamp(1rem, 1.7vw, 1.25rem); font-weight: 500; letter-spacing: -.03em; line-height: 1.15; }
 .floating-contact a { width: 48px; height: 48px; }
 .floating-contact a svg { width: 25px; height: 25px; }
+
+.language-switcher { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; border: 1px solid rgba(17,24,39,.16); border-radius: 999px; color: #111827; font-size: 11px; font-weight: 700; letter-spacing: .04em; transition: border-color .25s, color .25s, background .25s; }
+.language-switcher:hover { border-color: #f26522; color: #f26522; background: rgba(242,101,34,.08); }
+.language-prompt { position: fixed; left: 20px; bottom: 20px; z-index: 1100; max-width: 360px; padding: 14px 16px; border: 1px solid rgba(17,24,39,.12); border-radius: 14px; background: rgba(255,255,255,.96); box-shadow: 0 16px 42px rgba(17,24,39,.18); color: #111827; backdrop-filter: blur(12px); }
+.language-prompt p { margin: 0 0 11px; font-size: 13px; line-height: 1.45; }
+.language-prompt-actions { display: flex; align-items: center; gap: 12px; }
+.language-prompt-actions a { color: #f26522; font-size: 12px; font-weight: 700; }
+.language-prompt-actions button { border: 0; background: transparent; color: #6b7280; cursor: pointer; font: inherit; font-size: 12px; }
+.language-prompt-actions button:hover { color: #111827; }
+.theme-dark .language-switcher { border-color: rgba(255,255,255,.2); color: #f8fafc; }
+.theme-dark .language-prompt { border-color: rgba(255,255,255,.12); background: rgba(17,24,39,.96); color: #f8fafc; }
+.theme-dark .language-prompt-actions button { color: #cbd5e1; }
+
+@media (max-width: 767px) {
+  .language-prompt { left: 14px; right: 14px; bottom: 14px; max-width: none; }
+}
 .floating-whatsapp { background: #25d366 !important; }
 .floating-whatsapp:hover { background: #1da851 !important; }
 .floating-telegram { background: #229ed9 !important; }
