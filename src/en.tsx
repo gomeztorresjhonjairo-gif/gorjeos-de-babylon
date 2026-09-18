@@ -60,7 +60,7 @@ function waitForInitialRender() {
   return new Promise<void>((resolve) => {
     // Keep the poster visible through the mobile critical path. The shader
     // still appears automatically, but its download cannot compete with FCP/LCP.
-    const start = () => window.setTimeout(resolve, window.innerWidth < 768 ? 3200 : 650)
+    const start = () => window.setTimeout(resolve, window.innerWidth < 768 ? 1200 : 650)
     if (document.readyState === 'complete') start()
     else window.addEventListener('load', start, { once: true })
   })

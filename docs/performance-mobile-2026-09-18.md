@@ -78,3 +78,16 @@ La preview `https://gorjeos-de-babylon-kfsjxz8yn-gorjeos.vercel.app/` se volvió
 La auditoría de JavaScript todavía identifica el chunk del shader cuando este termina cargándose, aunque ya no se descarga mediante `modulepreload`. Para eliminar también ese coste de la medición habría que retrasar más la aparición de la animación o sustituirla, y ambas opciones modificarían la experiencia visual solicitada; por eso no se aplicaron.
 
 La advertencia de chunk grande del shader es esperada: ese código queda fuera de la carga inicial para no penalizar la primera pantalla y se mantiene como mejora visual progresiva.
+
+## Prueba de retraso adicional
+
+Se probó una espera móvil de 3,2 s antes de importar el shader, manteniendo el mismo shader, fallback y apariencia final. En la preview `https://gorjeos-de-babylon-rnk0dbluy-gorjeos.vercel.app/`, PageSpeed obtuvo:
+
+- Rendimiento móvil: 62, sin mejora.
+- First Contentful Paint: 5,9 s, sin mejora.
+- Largest Contentful Paint: 6,8 s, frente a 6,4 s en la medición anterior.
+- Total Blocking Time: 30 ms.
+- Cumulative Layout Shift: 0.
+- Navegación agéntica: 3/3.
+
+El retraso adicional no redujo el coste que PageSpeed observa en la cadena de red: el chunk `hero-shader` siguió apareciendo con aproximadamente 698 KiB. Se revirtió a 1,2 s en móvil para no empeorar la percepción de carga. La conclusión es que un retraso temporal, por sí solo, no resuelve el problema; una mejora mayor requeriría reducir o cambiar la entrega del shader en móvil, algo que sí alteraría la estrategia de carga de la animación y queda pendiente de aprobación específica.
