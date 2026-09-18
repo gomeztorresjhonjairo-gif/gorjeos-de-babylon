@@ -46,9 +46,17 @@ PageSpeed señaló tres áreas que sí podían optimizarse sin cambiar el diseñ
 - `git diff --check`: correcto.
 - No se modificaron imágenes de fondo, contenido textual ni parámetros de la animación.
 
-## Pendiente de medición
+## Resultado de la preview
 
-Después de publicar la preview se debe repetir PageSpeed móvil sobre esa URL. El resultado posterior debe compararse con la línea base; no se considera éxito solo por el tamaño del bundle, sino por la mejora de FCP, LCP y la puntuación móvil en condiciones equivalentes.
+La preview `https://gorjeos-de-babylon-kfsjxz8yn-gorjeos.vercel.app/` se volvió a medir con el mismo perfil móvil:
+
+- Rendimiento: 66, +2 puntos
+- First Contentful Paint: 3,8 s, mejora de 0,4 s
+- Largest Contentful Paint: 6,5 s, sin cambio
+- Total Blocking Time: 140 ms
+- Cumulative Layout Shift: 0
+- Speed Index: 4,1 s, mejora de 1,9 s
+
+La auditoría de JavaScript todavía identifica el chunk del shader cuando este termina cargándose, aunque ya no se descarga mediante `modulepreload`. Para eliminar también ese coste de la medición habría que retrasar más la aparición de la animación o sustituirla, y ambas opciones modificarían la experiencia visual solicitada; por eso no se aplicaron.
 
 La advertencia de chunk grande del shader es esperada: ese código queda fuera de la carga inicial para no penalizar la primera pantalla y se mantiene como mejora visual progresiva.
-
