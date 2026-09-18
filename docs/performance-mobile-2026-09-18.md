@@ -38,6 +38,12 @@ PageSpeed señaló tres áreas que sí podían optimizarse sin cambiar el diseñ
 - Se recompresaron `apps-software.webp` y `modelos-ia.webp` manteniendo sus dimensiones de 800 × 597 px.
 - Se añadió `gorjeos-mark-64.webp` para la cabecera compacta y se mantuvo el logo grande para el pie de página y metadatos.
 
+## Corrección de navegación agéntica
+
+PageSpeed identificó que el carrusel del método declaraba `role="listitem"` directamente sobre elementos `article`, una combinación que no cumple el árbol ARIA esperado por la auditoría de navegación agéntica. Se reemplazó por una lista semántica real con `ul` y `li`, manteniendo las mismas clases, estilos, desplazamiento y controles.
+
+También se ajustó la compresión de `apps-software.webp` tras la segunda medición. La imagen conserva sus dimensiones y composición visual, pero reduce su peso para atender el ahorro restante señalado por PageSpeed.
+
 ## Verificaciones
 
 - `npm run build`: correcto.

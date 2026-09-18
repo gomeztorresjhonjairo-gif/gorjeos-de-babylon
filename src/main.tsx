@@ -233,7 +233,7 @@ const expectations = [
 ]
 
 function ExpectationsCarousel() {
-  const trackRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLUListElement>(null)
   const move = (direction: number) => trackRef.current?.scrollBy({ left: direction * (trackRef.current.clientWidth * 0.82), behavior: 'smooth' })
 
   return (
@@ -242,9 +242,9 @@ function ExpectationsCarousel() {
         <SectionBadge number="2">Método</SectionBadge>
         <div className="expectations-heading"><h2>Del problema a una solución que <em>puede evolucionar.</em></h2><p>Trabajamos con un recorrido claro: entender, diseñar, construir y optimizar. Así cada decisión tiene un propósito y puedes ver cómo avanza tu proyecto.</p></div>
         <div className="expectations-carousel">
-          <div className="expectations-track" ref={trackRef} role="list" aria-label="Método de trabajo">
-            {expectations.map(({ eyebrow, title, description, Icon }) => <article className="expectation-card" key={eyebrow} role="listitem"><div className="expectation-icon"><Icon size={19} /></div><span>{eyebrow}</span><h3>{title}</h3><p>{description}</p></article>)}
-          </div>
+          <ul className="expectations-track" ref={trackRef} aria-label="Método de trabajo">
+            {expectations.map(({ eyebrow, title, description, Icon }) => <li className="expectation-card" key={eyebrow}><div className="expectation-icon"><Icon size={19} /></div><span>{eyebrow}</span><h3>{title}</h3><p>{description}</p></li>)}
+          </ul>
           <div className="expectations-controls"><button type="button" onClick={() => move(-1)} aria-label="Ver principio anterior"><ChevronLeft size={18} /></button><button type="button" onClick={() => move(1)} aria-label="Ver principio siguiente"><ChevronRight size={18} /></button></div>
         </div>
       </div>
