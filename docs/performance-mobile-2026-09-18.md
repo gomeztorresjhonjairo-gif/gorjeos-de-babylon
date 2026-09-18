@@ -91,3 +91,12 @@ Se probó una espera móvil de 3,2 s antes de importar el shader, manteniendo el
 - Navegación agéntica: 3/3.
 
 El retraso adicional no redujo el coste que PageSpeed observa en la cadena de red: el chunk `hero-shader` siguió apareciendo con aproximadamente 698 KiB. Se revirtió a 1,2 s en móvil para no empeorar la percepción de carga. La conclusión es que un retraso temporal, por sí solo, no resuelve el problema; una mejora mayor requeriría reducir o cambiar la entrega del shader en móvil, algo que sí alteraría la estrategia de carga de la animación y queda pendiente de aprobación específica.
+
+## Comparación de empaquetado y escritorio
+
+También se compararon dos variantes sin modificar el aspecto de la animación:
+
+- Sin división manual de React: móvil 65, FCP 4,1 s, LCP 6,3 s, TBT 50 ms; escritorio 86, con TBT de 330 ms.
+- Retraso de escritorio a 1,6 s: escritorio 79, con FCP 0,5 s, LCP 0,7 s, TBT 470 ms y CLS 0,001. Se descartó porque empeoró el bloqueo total.
+
+La rama vuelve a la configuración equilibrada: React separado, shader en su propio chunk diferido, sin `modulepreload` del shader y 650 ms de espera en escritorio / 1,2 s en móvil. En la medición previa de esta configuración se obtuvo escritorio 92 y móvil 62; la diferencia frente a ejecuciones de 64–66 confirma que PageSpeed varía entre corridas por CPU, red y momento de ejecución. La preview final de esta configuración es `https://gorjeos-de-babylon-q26ohada2-gorjeos.vercel.app/`.
