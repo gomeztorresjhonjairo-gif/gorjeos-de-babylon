@@ -1,0 +1,28 @@
+# Gorjeos de Babylon
+
+> Gorjeos de Babylon S.A.S. crea, posiciona y hace evolucionar productos y presencias digitales para empresas y marcas desde Colombia hacia mercados hispanohablantes.
+
+## Qué hacemos
+
+Convertimos retos de negocio en soluciones digitales claras mediante estrategia, diseño, desarrollo, experiencia de usuario, ciberseguridad e inteligencia artificial aplicada.
+
+## Servicios
+
+- Websites y embudo digital: sitios y recorridos orientados a explicar el valor y convertir interés en conversaciones.
+- Apps y software empresarial: herramientas adaptadas a los procesos y la operación de cada organización.
+- Auditoría de ciberseguridad: identificación de vulnerabilidades y prioridades para reforzar la operación.
+- Revisión UX / UI: análisis y mejora de interfaces, recorridos y puntos de fricción.
+- Modelos y personajes con IA: activos visuales y universos de marca con dirección creativa.
+
+## Método
+
+Trabajamos en cuatro etapas: entender el problema, diseñar una ruta concreta, construir la solución y optimizarla con el uso real.
+
+## Páginas
+
+- [Inicio](https://www.gorjeosbabylon.com/): propuesta de valor, servicios, método y contacto.
+- [Política de tratamiento de datos](https://www.gorjeosbabylon.com/privacy.html): información sobre el responsable y el uso de los datos personales.
+
+## Contacto
+
+El formulario de la página permite solicitar información comercial y conserva el servicio seleccionado. También están disponibles WhatsApp y Telegram desde los accesos directos del sitio.
