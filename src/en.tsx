@@ -7,6 +7,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react'
 import './index.css'
 
 const largeImage = 'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260516_090133_c157d30b-a99a-4477-bec1-a446149ec3f2.png&w=1280&q=85'
+const largeImageMobile = 'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260516_090133_c157d30b-a99a-4477-bec1-a446149ec3f2.png&w=640&q=72'
 const telegramUrl = 'https://t.me/GoBbylon'
 const whatsappUrl = 'https://wa.me/34695018080?text=Hello%2C%20I%27d%20like%20to%20learn%20more%20about%20Gorjeos%20de%20Babylon%20services.'
 
@@ -18,8 +19,15 @@ function useColombiaTime() {
   useEffect(() => {
     const update = () => setTime(new Intl.DateTimeFormat('en-CO', { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()))
     update()
-    const timer = window.setInterval(update, 1000)
-    return () => window.clearInterval(timer)
+    let interval: number | undefined
+    const timeout = window.setTimeout(() => {
+      update()
+      interval = window.setInterval(update, 60000)
+    }, (60 - new Date().getSeconds()) * 1000)
+    return () => {
+      window.clearTimeout(timeout)
+      if (interval) window.clearInterval(interval)
+    }
   }, [])
   return time
 }
@@ -82,6 +90,7 @@ const services: Service[] = [
 
 function ServiceCard({ service }: { service: Service }) {
   const { Icon } = service
+  const compactImage = service.image.replace(/\.webp$/, '-400.webp')
   const selectService = () => {
     const url = new URL(window.location.href)
     url.searchParams.set('servicio', service.interest)
@@ -91,7 +100,7 @@ function ServiceCard({ service }: { service: Service }) {
     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     track('service_selected', { service: service.interest, location: 'services', language: 'en' })
   }
-  return <article className="additional-service-card"><div className="service-image"><img src={service.image} alt={service.alt} loading="lazy" decoding="async" width="800" height="597" /><div className="service-icon"><Icon size={19} /></div></div><div className="additional-service-copy"><span>{service.eyebrow}</span><h3>{service.title}</h3><p>{service.description}</p><a href="#contact" onClick={selectService}>Start a project <ArrowRight size={15} /></a></div></article>
+  return <article className="additional-service-card"><div className="service-image"><img src={service.image} srcSet={`${compactImage} 400w, ${service.image} 800w`} sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 400px" alt={service.alt} loading="lazy" decoding="async" width="400" height="299" /><div className="service-icon"><Icon size={19} /></div></div><div className="additional-service-copy"><span>{service.eyebrow}</span><h3>{service.title}</h3><p>{service.description}</p><a href="#contact" onClick={selectService}>Start a project <ArrowRight size={15} /></a></div></article>
 }
 
 const faqItems = [
