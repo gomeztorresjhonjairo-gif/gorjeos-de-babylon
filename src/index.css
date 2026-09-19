@@ -176,6 +176,9 @@ img, video { display: block; max-width: 100%; }
   display: flex;
   gap: 16px;
   overflow-x: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   padding: 4px 4px 20px;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
