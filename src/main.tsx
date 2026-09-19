@@ -136,8 +136,8 @@ function TelegramIcon() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.8 3.2 2.7 10.6c-1.3.5-1.3 1.2-.2 1.5l4.9 1.5 1.9 5.8c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.5.3 1.7-.8l3.2-15.1c.3-1.4-.5-2-1.8-1.5ZM8.2 13.3l10.8-6.8c.5-.3.9-.1.5.2l-8.8 7.9-.3 3.3-1.7-4.6-3.5-1.1c-.8-.2-.8-.5.2-.9l2.8-1.1Z" /></svg>
 }
 
-function ThemeToggle({ darkMode, onToggle }: { darkMode: boolean; onToggle: () => void }) {
-  return <button className="theme-toggle" type="button" onClick={onToggle} aria-label={darkMode ? 'Activar modo claro' : 'Activar modo oscuro'} aria-pressed={darkMode} title={darkMode ? 'Modo claro' : 'Modo oscuro'}>{darkMode ? <Sun size={15} /> : <Moon size={15} />}</button>
+function ThemeToggle({ darkMode, onToggle, tabIndex }: { darkMode: boolean; onToggle: () => void; tabIndex?: number }) {
+  return <button className="theme-toggle" type="button" onClick={onToggle} tabIndex={tabIndex} aria-label={darkMode ? 'Activar modo claro' : 'Activar modo oscuro'} aria-pressed={darkMode} title={darkMode ? 'Modo claro' : 'Modo oscuro'}>{darkMode ? <Sun size={15} /> : <Moon size={15} />}</button>
 }
 
 function BrandLogo({ compact = false }: { compact?: boolean }) {
@@ -426,7 +426,7 @@ function App() {
 
           {menuOpen && <button className="mobile-menu-backdrop" type="button" aria-label="Cerrar menú" onClick={closeMenu} tabIndex={-1} />}
           <div id="mobile-navigation" className={`mobile-sheet ${menuOpen ? 'mobile-sheet-open' : ''}`} aria-hidden={!menuOpen}>
-            <div className="mobile-sheet-tools"><span className="mobile-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><div className="mobile-sheet-actions"><a className="language-switcher" href="/en/" onClick={() => window.localStorage.setItem('gorjeos-language-choice', 'en')}>EN</a><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} /><button className="mobile-sheet-close" type="button" onClick={closeMenu} aria-label="Cerrar menú"><X size={17} /><span>Cerrar</span></button></div></div>
+            <div className="mobile-sheet-tools"><span className="mobile-time"><Clock size={14} /> {colombiaTime} en Bogotá</span><div className="mobile-sheet-actions"><a className="language-switcher" href="/en/" onClick={() => window.localStorage.setItem('gorjeos-language-choice', 'en')} tabIndex={menuOpen ? 0 : -1}>EN</a><ThemeToggle darkMode={darkMode} onToggle={() => setDarkMode((value) => !value)} tabIndex={menuOpen ? 0 : -1} /><button className="mobile-sheet-close" type="button" onClick={closeMenu} aria-label="Cerrar menú" tabIndex={menuOpen ? 0 : -1}><X size={17} /><span>Cerrar</span></button></div></div>
             <nav>{navItems.map(([label, href]) => <a key={label} href={href} onClick={(event) => navigateFromMenu(event, href)} tabIndex={menuOpen ? 0 : -1}>{label}<ArrowRight size={20} /></a>)}</nav>
             <RollingButton dark={false} onClick={(event) => navigateFromMenu(event, '#contacto')}>Iniciar proyecto</RollingButton>
           </div>
