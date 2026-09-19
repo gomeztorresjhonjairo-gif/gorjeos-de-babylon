@@ -180,6 +180,8 @@ img, video { display: block; max-width: 100%; }
   padding: 0;
   list-style: none;
   padding: 4px 4px 20px;
+  margin: 0;
+  list-style: none;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
