@@ -70,7 +70,13 @@ function StaticHeroBackground() {
 
 const ShaderBackground = lazy(async () => {
   const { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } = await import('shaders/react')
-  return { default: () => <div className="shader-layer" aria-hidden="true"><ShaderFallback /><Shader className="shader-canvas" onUnavailable={() => undefined}><Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} /><ChromaFlow baseColor="#ffffff" downColor="#ff5f03" leftColor="#ff5f03" rightColor="#ff5f03" upColor="#ff5f03" momentum={13} radius={3.5} /><FlutedGlass aberration={0.61} angle={31} frequency={8} highlight={0.12} highlightSoftness={0} lightAngle={-90} refraction={4} shape="rounded" softness={1} speed={0.15} /><FilmGrain strength={0.05} /></Shader><div className="terrain-lines"><svg viewBox="0 0 1600 900" preserveAspectRatio="none"><path d="M0 690C160 610 220 760 390 660S690 520 830 660s280 120 410 10 220-60 360-150" /><path d="M0 760c170-70 250 60 420-45s300-170 450-30 250 150 390 40 210-120 340-170" /></svg></div></div> }
+  return {
+    default: () => {
+      const canUseWebGpu = typeof navigator !== 'undefined' && 'gpu' in navigator
+      const [shaderUnavailable, setShaderUnavailable] = useState(!canUseWebGpu)
+      return <div className="shader-layer" aria-hidden="true">{shaderUnavailable ? <ShaderFallback /> : <Shader className="shader-canvas" onReady={() => setShaderUnavailable(false)} onUnavailable={() => setShaderUnavailable(true)}><Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} /><ChromaFlow baseColor="#ffffff" downColor="#ff5f03" leftColor="#ff5f03" rightColor="#ff5f03" upColor="#ff5f03" momentum={13} radius={3.5} /><FlutedGlass aberration={0.61} angle={31} frequency={8} highlight={0.12} highlightSoftness={0} lightAngle={-90} refraction={4} shape="rounded" softness={1} speed={0.15} /><FilmGrain strength={0.05} /></Shader>}<div className="terrain-lines"><svg viewBox="0 0 1600 900" preserveAspectRatio="none"><path d="M0 690C160 610 220 760 390 660S690 520 830 660s280 120 410 10 220-60 360-150" /><path d="M0 760c170-70 250 60 420-45s300-170 450-30 250 150 390 40 210-120 340-170" /></svg></div></div>
+    },
+  }
 })
 
 function DeferredShaderBackground() {
