@@ -64,47 +64,22 @@ function shouldSkipShader() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches || Boolean(connection?.saveData)
 }
 
+function waitForInitialRender() {
+  return new Promise<void>((resolve) => {
+    const start = () => window.setTimeout(resolve, window.innerWidth < 768 ? 1200 : 650)
+    if (document.readyState === 'complete') start()
+    else window.addEventListener('load', start, { once: true })
+  })
+}
+
 const ShaderBackground = lazy(async () => {
   if (shouldSkipShader()) return { default: ShaderFallback }
+  await waitForInitialRender()
   const { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } = await import('shaders/react')
   return { default: () => <div className="shader-layer" aria-hidden="true"><ShaderFallback /><Shader className="shader-canvas" onUnavailable={() => undefined}><Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} /><ChromaFlow baseColor="#ffffff" downColor="#ff5f03" leftColor="#ff5f03" rightColor="#ff5f03" upColor="#ff5f03" momentum={13} radius={3.5} /><FlutedGlass aberration={0.61} angle={31} frequency={8} highlight={0.12} highlightSoftness={0} lightAngle={-90} refraction={4} shape="rounded" softness={1} speed={0.15} /><FilmGrain strength={0.05} /></Shader><div className="terrain-lines"><svg viewBox="0 0 1600 900" preserveAspectRatio="none"><path d="M0 690C160 610 220 760 390 660S690 520 830 660s280 120 410 10 220-60 360-150" /><path d="M0 760c170-70 250 60 420-45s300-170 450-30 250 150 390 40 210-120 340-170" /></svg></div></div> }
 })
 
 function DeferredShaderBackground() {
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    if (shouldSkipShader()) return
-
-    let cancelled = false
-    const start = () => {
-      if (!cancelled) setReady(true)
-    }
-    const idleWindow = window as Window & {
-      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number
-      cancelIdleCallback?: (handle: number) => void
-    }
-    const schedule = () => {
-      if (idleWindow.requestIdleCallback) {
-        const handle = idleWindow.requestIdleCallback(start, { timeout: 5000 })
-        return () => idleWindow.cancelIdleCallback?.(handle)
-      }
-      const handle = window.setTimeout(start, 2500)
-      return () => window.clearTimeout(handle)
-    }
-
-    if (document.readyState === 'complete') return schedule()
-    let cancelScheduled: (() => void) | undefined
-    const handleLoad = () => { cancelScheduled = schedule() }
-    window.addEventListener('load', handleLoad, { once: true })
-    return () => {
-      cancelled = true
-      window.removeEventListener('load', handleLoad)
-      cancelScheduled?.()
-    }
-  }, [])
-
-  if (!ready) return <ShaderFallback />
   return <Suspense fallback={<ShaderFallback />}><ShaderBackground /></Suspense>
 }
 

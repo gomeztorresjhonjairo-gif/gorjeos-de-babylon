@@ -103,8 +103,17 @@ function shouldSkipShader() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches || Boolean(connection?.saveData)
 }
 
+function waitForInitialRender() {
+  return new Promise<void>((resolve) => {
+    const start = () => window.setTimeout(resolve, window.innerWidth < 768 ? 1200 : 650)
+    if (document.readyState === 'complete') start()
+    else window.addEventListener('load', start, { once: true })
+  })
+}
+
 const ShaderBackground = lazy(async () => {
   if (shouldSkipShader()) return { default: ShaderFallback }
+  await waitForInitialRender()
   const { ChromaFlow, FilmGrain, FlutedGlass, Shader, Swirl } = await import('shaders/react')
   return {
     default: () => {
@@ -114,44 +123,6 @@ const ShaderBackground = lazy(async () => {
     },
   }
 })
-
-function DeferredShaderBackground() {
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    if (shouldSkipShader()) return
-
-    let cancelled = false
-    const start = () => {
-      if (!cancelled) setReady(true)
-    }
-    const idleWindow = window as Window & {
-      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number
-      cancelIdleCallback?: (handle: number) => void
-    }
-    const schedule = () => {
-      if (idleWindow.requestIdleCallback) {
-        const handle = idleWindow.requestIdleCallback(start, { timeout: 5000 })
-        return () => idleWindow.cancelIdleCallback?.(handle)
-      }
-      const handle = window.setTimeout(start, 2500)
-      return () => window.clearTimeout(handle)
-    }
-
-    if (document.readyState === 'complete') return schedule()
-    let cancelScheduled: (() => void) | undefined
-    const handleLoad = () => { cancelScheduled = schedule() }
-    window.addEventListener('load', handleLoad, { once: true })
-    return () => {
-      cancelled = true
-      window.removeEventListener('load', handleLoad)
-      cancelScheduled?.()
-    }
-  }, [])
-
-  if (!ready) return <ShaderFallback />
-  return <Suspense fallback={<ShaderFallback />}><ShaderBackground /></Suspense>
-}
 
 function SectionTerrainLines() {
   return <div className="section-terrain-lines" aria-hidden="true"><svg viewBox="0 0 1600 900" preserveAspectRatio="none"><path d="M0 690C160 610 220 760 390 660S690 520 830 660s280 120 410 10 220-60 360-150" /><path d="M0 760c170-70 250 60 420-45s300-170 450-30 250 150 390 40 210-120 340-170" /><path d="M0 830c150-60 290 20 430-45s260-95 400-15 270 120 420 40 220-95 350-130" /><path d="M0 890c190-60 300-5 470-35s290-48 420-5 280 70 420 20 180-72 290-90" /></svg></div>
@@ -444,7 +415,7 @@ function App() {
     <a className="skip-link" href="#servicios">Saltar al contenido principal</a>
     <main className={`axion-page ${darkMode ? 'theme-dark' : ''}`}>
       <section className="hero-section" id="inicio">
-        <DeferredShaderBackground />
+        <Suspense fallback={<ShaderFallback />}><ShaderBackground /></Suspense>
         <div className="hero-overlay" aria-hidden="true" />
         <div className="hero-container">
           <header className="pill-nav">
